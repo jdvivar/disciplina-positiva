@@ -31,13 +31,18 @@
     page-break-inside: avoid;
   }
 
-  /* Strip card backgrounds and borders for letter feel */
+  /* Strip card backgrounds, borders, and shadows for letter feel */
   .print-exercise {
     background: none !important;
     border: none !important;
     border-radius: 0 !important;
     padding: 0 !important;
     margin-bottom: 24px !important;
+  }
+
+  .print-journal {
+    box-shadow: none !important;
+    background: white !important;
   }
 
   /* Hide subtitle in print — just title and date */
@@ -55,6 +60,6 @@
 
   /* Generous margins */
   @page {
-    margin: 2cm 2.5cm;
+    margin: 3cm 3.5cm;
   }
 }
