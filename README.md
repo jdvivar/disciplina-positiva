@@ -1,43 +1,44 @@
-# Astro Starter Kit: Minimal
+# Disciplina Positiva
 
-```sh
-npm create astro@latest -- --template minimal
+Guia interactiva de disciplina positiva para padres y madres. Basada en el manual de la Dra. Joan E. Durrant, adaptado por ACHNU Chile.
+
+Los padres navegan los capitulos, completan ejercicios de reflexion a su propio ritmo, y pueden imprimir un diario personal con sus respuestas.
+
+## Stack
+
+- [Astro](https://astro.build) — generador de sitios estaticos
+- [Svelte 5](https://svelte.dev) — componentes interactivos (ejercicios, navegacion, progreso)
+- [Tailwind CSS v4](https://tailwindcss.com) — estilos
+- [TinaCMS](https://tina.io) — CMS basado en git con edicion visual
+- [Vercel](https://vercel.com) — hosting
+
+## Desarrollo
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Esto inicia TinaCMS y Astro juntos. El sitio esta en `localhost:4321` y el panel del CMS en `localhost:4321/admin/index.html`.
 
-## 🚀 Project Structure
+## Estructura del contenido
 
-Inside of your Astro project, you'll see the following folders and files:
+El contenido esta en `src/content/es/` como archivos MDX. Cada capitulo tiene frontmatter (titulo, orden) y ejercicios inline.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Para agregar un nuevo idioma:
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+1. Crear una carpeta de contenido (ej. `src/content/en/`) con los archivos traducidos
+2. Crear un archivo JSON de strings de UI (ej. `src/i18n/en.json`)
+3. Agregar una coleccion en `tina/config.ts`
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Comandos
 
-Any static assets, like images, can be placed in the `public/` directory.
+| Comando | Descripcion |
+| :-- | :-- |
+| `npm run dev` | Servidor de desarrollo (TinaCMS + Astro) |
+| `npm run build` | Build de produccion |
+| `npm run preview` | Preview del build local |
 
-## 🧞 Commands
+## Licencia
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+El contenido original es una traduccion y adaptacion de "Positive Discipline: What it is and how to do it" de Joan E. Durrant, elaborado por Save the Children.
