@@ -9,9 +9,13 @@
     currentSlug: string;
     onNavigate: (slug: string) => void;
     onJournal: () => void;
+    onAbout: () => void;
   }
 
-  let { chapters, currentSlug, onNavigate, onJournal }: Props = $props();
+  let { chapters, currentSlug, onNavigate, onJournal, onAbout }: Props = $props();
+
+  // Filter out the about page from the chapter navigation
+  let navChapters = $derived(chapters.filter((ch) => ch.slug !== 'about'));
 
   // Progress state — re-derived on each refreshProgress() call
   let progressVersion = $state(0);
@@ -30,7 +34,7 @@
     void progressVersion;
 
     const statuses: Map<string, ChapterStatus> = new Map();
-    for (const ch of chapters) {
+    for (const ch of navChapters) {
       if (ch.exercises.length === 0) {
         statuses.set(ch.slug, 'pending');
         continue;
@@ -49,12 +53,12 @@
   });
 
   let totalExercises = $derived(
-    chapters.reduce((sum, ch) => sum + ch.exercises.length, 0)
+    navChapters.reduce((sum, ch) => sum + ch.exercises.length, 0)
   );
 
   let totalCompleted = $derived.by(() => {
     void progressVersion;
-    const allIds = chapters.flatMap((ch) => ch.exercises.map((e) => e.id));
+    const allIds = navChapters.flatMap((ch) => ch.exercises.map((e) => e.id));
     return countCompleted(allIds);
   });
 
@@ -75,7 +79,7 @@
       {t('nav.chapters', locale)}
     </div>
     <ul class="space-y-0.5">
-      {#each chapters as chapter (chapter.slug)}
+      {#each navChapters as chapter (chapter.slug)}
         {@const status = chapterStatuses.get(chapter.slug) ?? 'pending'}
         {@const isCurrent = chapter.slug === currentSlug}
         <li>
@@ -109,13 +113,19 @@
     </ul>
   </div>
 
-  <!-- Journal link -->
-  <div class="px-3 pb-2">
+  <!-- Journal & About links -->
+  <div class="px-3 pb-2 space-y-0.5">
     <button
       onclick={() => onJournal()}
       class="w-full text-left px-2 py-1.5 rounded-md text-[11px] text-sage-600 hover:bg-sage-100 transition-colors"
     >
       {t('nav.journal', locale)}
+    </button>
+    <button
+      onclick={() => onAbout()}
+      class="w-full text-left px-2 py-1.5 rounded-md text-[11px] text-sage-500 hover:bg-sage-100 transition-colors"
+    >
+      {t('nav.about', locale)}
     </button>
   </div>
 

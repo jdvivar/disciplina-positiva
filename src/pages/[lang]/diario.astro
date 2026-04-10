@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import type { ChapterMeta, ExerciseData } from '../../lib/types';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppShell from '../../components/AppShell.svelte';
 import Journal from '../../components/Journal.svelte';
 import '../../styles/print.css';
 
@@ -47,7 +48,7 @@ const chaptersMeta: ChapterMeta[] = sorted.map((ch) => ({
 ---
 
 <BaseLayout title="Mi Diario de Crianza">
-  <main class="min-h-screen">
+  <AppShell chapters={chaptersMeta} currentSlug="diario" client:load>
     <Journal chapters={chaptersMeta} client:load />
-  </main>
+  </AppShell>
 </BaseLayout>

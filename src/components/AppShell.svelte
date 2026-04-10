@@ -31,18 +31,17 @@
 
   function handleNavigate(slug: string) {
     const lang = getLocale();
-    const url = `/${lang}/${slug}`;
-    history.pushState({}, '', url);
-    window.dispatchEvent(new CustomEvent('app-navigate', { detail: { slug } }));
-    drawerOpen = false;
+    window.location.href = `/${lang}/${slug}`;
   }
 
   function handleJournal() {
     const lang = getLocale();
-    const url = `/${lang}/diario`;
-    history.pushState({}, '', url);
-    window.dispatchEvent(new CustomEvent('app-navigate', { detail: { slug: 'diario' } }));
-    drawerOpen = false;
+    window.location.href = `/${lang}/diario`;
+  }
+
+  function handleAbout() {
+    const lang = getLocale();
+    window.location.href = `/${lang}/about`;
   }
 
   // Called by exercises after saving — refreshes sidebar progress
@@ -59,6 +58,7 @@
     {currentSlug}
     onNavigate={handleNavigate}
     onJournal={handleJournal}
+    onAbout={handleAbout}
     bind:this={sidebarRef}
   />
 </div>
@@ -106,6 +106,7 @@
       {currentSlug}
       onNavigate={handleNavigate}
       onJournal={handleJournal}
+      onAbout={handleAbout}
       bind:this={mobileSidebarRef}
     />
   </div>

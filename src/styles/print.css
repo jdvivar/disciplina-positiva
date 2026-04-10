@@ -1,4 +1,5 @@
 @media print {
+  /* Hide all UI chrome */
   .print-hidden,
   aside,
   nav,
@@ -7,26 +8,53 @@
   [class*="lg:hidden"] {
     display: none !important;
   }
+
+  /* Reset layout — no sidebar, no mobile top bar spacing */
   main {
     margin-left: 0 !important;
     padding-top: 0 !important;
   }
+
+  /* Journal: letter-like feel */
   .print-journal {
     max-width: 100%;
     padding: 0;
   }
+
+  /* No forced page breaks between chapters — let it flow like a letter */
   .print-chapter {
-    page-break-before: always;
+    page-break-before: auto;
   }
-  .print-chapter:first-child {
-    page-break-before: avoid;
-  }
+
+  /* Try to keep exercises together */
   .print-exercise {
     page-break-inside: avoid;
   }
-  .bg-sage-50 {
-    background-color: #f8faf9 !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+
+  /* Strip card backgrounds and borders for letter feel */
+  .print-exercise {
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 24px !important;
+  }
+
+  /* Hide subtitle in print — just title and date */
+  .print-subtitle {
+    display: none !important;
+  }
+
+  /* Header: simple, like a letter */
+  .print-header {
+    text-align: left !important;
+    margin-bottom: 32px !important;
+    padding-bottom: 16px !important;
+    border-bottom: 1px solid #d8f3dc !important;
+  }
+
+  /* Generous margins */
+  @page {
+    margin: 2cm 2.5cm;
   }
 }
