@@ -81,9 +81,6 @@
 
   <!-- Chapter list -->
   <div class="flex-1 overflow-y-auto px-3">
-    <div class="text-[9px] font-semibold uppercase tracking-wider text-sage-500 px-2 mb-2">
-      {t('nav.chapters', locale)}
-    </div>
     <ul class="space-y-1">
       {#each navChapters as chapter (chapter.slug)}
         {@const status = chapterStatuses.get(chapter.slug) ?? 'pending'}
