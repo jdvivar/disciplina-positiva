@@ -94,7 +94,7 @@
             class="group w-full text-left px-3 py-2 rounded-lg transition-all
               {isCurrent
                 ? 'bg-sage-100'
-                : ''}"
+                : 'hover:bg-sage-100/50'}"
           >
             <span>
               {#if chapter.chapter}
@@ -102,7 +102,7 @@
                   Capítulo {chapter.chapter}
                 </span>
               {/if}
-              <span class="block font-heading text-[12px] leading-snug transition-colors {isCurrent ? 'text-sage-900 font-semibold' : 'text-sage-500 group-hover:text-sage-700 group-hover:underline group-hover:decoration-sage-200 group-hover:underline-offset-2'}">
+              <span class="block font-heading text-[12px] leading-snug transition-colors {isCurrent ? 'text-sage-900 font-semibold' : 'text-sage-500 group-hover:text-sage-700'}">
                 {chapter.title}
               </span>
             </span>
