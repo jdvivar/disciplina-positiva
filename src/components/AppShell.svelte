@@ -117,7 +117,7 @@
   <!-- Spacer for mobile top bar -->
   <div class="lg:hidden h-12"></div>
 
-  <div class="max-w-3xl mx-auto px-6 py-10">
+  <div class="max-w-3xl mx-auto px-6 py-10 bg-white rounded-xl my-6 shadow-sm">
     {@render children()}
   </div>
 </main>

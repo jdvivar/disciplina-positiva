@@ -27,8 +27,9 @@ blockquote {
   padding: 28px 32px 28px 56px;
   margin: 24px 0;
   position: relative;
-  border: none;
-  border-left: none;
+  border: none !important;
+  border-left: none !important;
+  font-style: normal !important;
 }
 
 blockquote::before {
@@ -48,6 +49,12 @@ blockquote p {
   color: var(--color-sage-900);
   line-height: 1.6;
   margin: 0 0 4px;
+  font-style: normal !important;
+}
+
+blockquote p::before,
+blockquote p::after {
+  content: none !important;
 }
 
 blockquote p:last-child {
