@@ -1,0 +1,89 @@
+<script lang="ts">
+  import { t } from '../../lib/i18n';
+  import { saveExercise, getExerciseProgress } from '../../lib/progress';
+  import ExerciseBadge from '../ExerciseBadge.svelte';
+
+  interface Props {
+    id: string;
+    title: string;
+    instructions: string;
+    onSave?: () => void;
+  }
+
+  let { id, title, instructions, onSave }: Props = $props();
+
+  const dimensions = [
+    'Nivel de actividad',
+    'Regularidad',
+    'Reacción inicial',
+    'Adaptabilidad',
+    'Intensidad',
+    'Estado de ánimo',
+    'Persistencia',
+    'Distracción',
+    'Sensibilidad',
+  ];
+
+  let values: number[] = $state(dimensions.map(() => 3));
+  let saved = $state(false);
+
+  $effect(() => {
+    const progress = getExerciseProgress(id);
+    if (progress?.answers?.values) {
+      values = [...(progress.answers.values as number[])];
+      saved = progress.completed;
+    }
+  });
+
+  function handleSave() {
+    saveExercise(id, { values });
+    saved = true;
+    onSave?.();
+  }
+</script>
+
+<div class="my-6 rounded-2xl bg-sage-50 p-6">
+  <div class="mb-3 flex items-center gap-2">
+    <ExerciseBadge completed={saved} />
+  </div>
+
+  <h3 class="mb-2 font-heading text-lg font-semibold text-sage-700">{title}</h3>
+  <p class="mb-4 font-body text-sm leading-relaxed text-sage-500">{instructions}</p>
+
+  <div class="space-y-4">
+    {#each dimensions as dimension, index (dimension)}
+      <div class="rounded-lg bg-white p-4">
+        <p class="mb-2 font-body text-sm font-medium text-sage-700">
+          {dimension}
+        </p>
+        <label class="flex items-center gap-3">
+          <span class="w-10 text-right font-body text-xs text-sage-500">
+            {t('exercise.scale.low')}
+          </span>
+          <input
+            type="range"
+            min="1"
+            max="5"
+            bind:value={values[index]}
+            class="flex-1 accent-sage-600"
+          />
+          <span class="w-10 font-body text-xs text-sage-500">
+            {t('exercise.scale.high')}
+          </span>
+          <span class="w-6 text-center font-body text-sm font-semibold text-sage-700">
+            {values[index]}
+          </span>
+        </label>
+      </div>
+    {/each}
+  </div>
+
+  <div class="mt-4">
+    <button
+      onclick={handleSave}
+      class="rounded-lg bg-sage-600 px-4 py-2 font-body text-sm font-medium text-white hover:bg-sage-700"
+    >
+      {saved ? t('exercise.saved') : t('exercise.save')}
+    </button>
+  </div>
+</div>
