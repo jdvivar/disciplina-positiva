@@ -68,7 +68,13 @@
 <nav class="flex flex-col h-full bg-sage-50 border-r border-sage-100">
   <!-- Logo / Title -->
   <div class="px-5 pt-6 pb-4">
-    <h1 class="font-heading text-base font-semibold text-sage-700 leading-tight">
+    <h1 class="flex items-center gap-2 font-heading text-base font-semibold text-sage-700 leading-tight">
+      <svg class="w-6 h-6 flex-shrink-0" viewBox="6 10 68 60" fill="none">
+        <path d="M12 56C12 56 18 46 28 42C34 40 38 39 42 39C46 39 52 40 58 44C62 47 64 52 62 56C58 62 48 64 40 64C30 64 20 62 12 56Z" fill="#52796f"/>
+        <path d="M40 39V14" stroke="#40916c" stroke-width="5" stroke-linecap="round"/>
+        <path d="M40 28C34 22 24 19 21 22C18 25 22 34 30 34C35 34 38 31 40 28Z" fill="#40916c"/>
+        <path d="M40 20C46 14 56 11 59 14C62 17 58 26 50 26C45 26 42 23 40 20Z" fill="#b7e4c7"/>
+      </svg>
       {t('site.title', locale)}
     </h1>
   </div>
@@ -78,33 +84,37 @@
     <div class="text-[9px] font-semibold uppercase tracking-wider text-sage-500 px-2 mb-2">
       {t('nav.chapters', locale)}
     </div>
-    <ul class="space-y-0.5">
+    <ul class="space-y-1">
       {#each navChapters as chapter (chapter.slug)}
         {@const status = chapterStatuses.get(chapter.slug) ?? 'pending'}
         {@const isCurrent = chapter.slug === currentSlug}
         <li>
           <button
             onclick={() => onNavigate(chapter.slug)}
-            class="w-full text-left px-2 py-1.5 rounded-md text-[11px] leading-snug transition-colors
+            class="w-full text-left px-3 py-2 rounded-lg transition-colors
               {isCurrent
-                ? 'bg-sage-100 text-sage-900 font-medium'
-                : status === 'done'
-                  ? 'text-sage-600 hover:bg-sage-100'
-                  : 'text-sage-500 hover:bg-sage-100'}"
+                ? 'bg-sage-100'
+                : 'hover:bg-sage-50'}"
           >
-            <span class="flex items-center gap-1.5">
-              {#if status === 'done'}
-                <span class="text-sage-600 text-[10px] flex-shrink-0">&#10003;</span>
-              {:else if status === 'in-progress'}
-                <span class="w-1.5 h-1.5 rounded-full bg-sage-600 flex-shrink-0"></span>
-              {:else}
-                <span class="w-1.5 h-1.5 rounded-full bg-sage-200 flex-shrink-0"></span>
-              {/if}
-              <span class="truncate">
-                {#if chapter.chapter}
-                  {chapter.chapter}.
+            <span class="flex items-start gap-2">
+              <span class="flex-shrink-0 mt-0.5">
+                {#if status === 'done'}
+                  <span class="text-sage-600 text-[10px]">&#10003;</span>
+                {:else if status === 'in-progress'}
+                  <span class="block w-1.5 h-1.5 rounded-full bg-sage-600 mt-[3px]"></span>
+                {:else}
+                  <span class="block w-1.5 h-1.5 rounded-full bg-sage-200 mt-[3px]"></span>
                 {/if}
-                {chapter.title}
+              </span>
+              <span>
+                {#if chapter.chapter}
+                  <span class="block font-body text-[10px] uppercase tracking-wider {isCurrent ? 'text-sage-700' : 'text-sage-500'}">
+                    Capítulo {chapter.chapter}
+                  </span>
+                {/if}
+                <span class="block font-heading text-[12px] leading-snug {isCurrent ? 'text-sage-900 font-semibold' : status === 'done' ? 'text-sage-600' : 'text-sage-500'}">
+                  {chapter.title}
+                </span>
               </span>
             </span>
           </button>
