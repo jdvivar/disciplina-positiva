@@ -1,0 +1,141 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { ChapterMeta, ExerciseData } from '../../lib/types';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppShell from '../../components/AppShell.svelte';
+import ChapterContent from '../../components/ChapterContent.svelte';
+
+export async function getStaticPaths() {
+  const chapters = await getCollection('es');
+  return chapters.map((chapter) => ({
+    params: { lang: 'es', slug: chapter.id },
+  }));
+}
+
+const { slug } = Astro.params;
+const allChapters = await getCollection('es');
+
+// Sort chapters by order
+const sorted = [...allChapters].sort((a, b) => a.data.order - b.data.order);
+
+// Find current chapter
+const currentEntry = sorted.find((ch) => ch.id === slug);
+if (!currentEntry) {
+  return Astro.redirect('/es/intro');
+}
+
+// Extract exercises from raw MDX source (the data attributes are in the raw source)
+function extractExercisesFromRaw(rawBody: string): ExerciseData[] {
+  const exercises: ExerciseData[] = [];
+  const pattern =
+    /<div\s+data-exercise-id="([^"]*?)"\s+data-exercise-type="([^"]*?)"\s+data-exercise-title="([^"]*?)"[^>]*>([\s\S]*?)<\/div>/g;
+  let match: RegExpExecArray | null;
+  while ((match = pattern.exec(rawBody)) !== null) {
+    const rawInstructions = match[4];
+    const instructions = rawInstructions
+      .replace(/<[^>]+>/g, '\n')
+      .replace(/\n{2,}/g, '\n')
+      .trim();
+    exercises.push({
+      id: match[1],
+      type: match[2] as ExerciseData['type'],
+      title: match[3],
+      instructions,
+    });
+  }
+  return exercises;
+}
+
+// Build chapter metadata for sidebar (using raw body to extract exercises)
+const chaptersMeta: ChapterMeta[] = sorted.map((ch) => ({
+  title: ch.data.title,
+  chapter: ch.data.chapter,
+  order: ch.data.order,
+  slug: ch.id,
+  exercises: extractExercisesFromRaw(ch.body ?? ''),
+}));
+
+// Current chapter navigation
+const currentIdx = sorted.findIndex((ch) => ch.id === slug);
+const currentMeta = chaptersMeta[currentIdx];
+const prevMeta = currentIdx > 0 ? chaptersMeta[currentIdx - 1] : null;
+const nextMeta = currentIdx < chaptersMeta.length - 1 ? chaptersMeta[currentIdx + 1] : null;
+
+// Render the current chapter's MDX (Astro 6: render is a standalone function)
+const { Content } = await render(currentEntry);
+
+// Pass exercise data as JSON for client-side hydration
+const exercisesJson = JSON.stringify(currentMeta.exercises);
+---
+
+<BaseLayout title={currentEntry.data.title}>
+  <AppShell chapters={chaptersMeta} currentSlug={slug!} client:load>
+    <div class="chapter-page" data-exercises={exercisesJson}>
+      <article class="prose prose-sage max-w-none">
+        <Content />
+      </article>
+
+      <ChapterContent
+        chapter={currentMeta}
+        prevChapter={prevMeta}
+        nextChapter={nextMeta}
+        client:load
+      />
+    </div>
+  </AppShell>
+</BaseLayout>
+
+<script>
+  // Client-side: Replace exercise placeholder divs with interactive Svelte components
+  // This runs after Astro has rendered the MDX content server-side
+  import { mount } from 'svelte';
+  import ExerciseRenderer from '../../components/ExerciseRenderer.svelte';
+  import type { ExerciseData } from '../../lib/types';
+
+  function hydrateExercises() {
+    const chapterPage = document.querySelector('.chapter-page');
+    if (!chapterPage) return;
+
+    const exerciseDivs = chapterPage.querySelectorAll<HTMLDivElement>('[data-exercise-id]');
+
+    exerciseDivs.forEach((div) => {
+      const id = div.getAttribute('data-exercise-id') ?? '';
+      const type = (div.getAttribute('data-exercise-type') ?? 'open-text') as ExerciseData['type'];
+      const title = div.getAttribute('data-exercise-title') ?? '';
+      const instructions = div.textContent?.trim() ?? '';
+
+      const exercise: ExerciseData = { id, type, title, instructions };
+
+      // Create a wrapper element for the Svelte component
+      const wrapper = document.createElement('div');
+      wrapper.className = 'exercise-slot';
+      div.replaceWith(wrapper);
+
+      mount(ExerciseRenderer, {
+        target: wrapper,
+        props: {
+          exercise,
+          onSave: () => {
+            // Notify AppShell to refresh sidebar progress
+            const appShell = document.querySelector('[data-appshell]');
+            if (appShell) {
+              window.dispatchEvent(new CustomEvent('exercise-saved'));
+            }
+          },
+        },
+      });
+    });
+  }
+
+  // Run hydration when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hydrateExercises);
+  } else {
+    hydrateExercises();
+  }
+
+  // Re-hydrate on client-side navigation
+  window.addEventListener('app-navigate', () => {
+    requestAnimationFrame(hydrateExercises);
+  });
+</script>
