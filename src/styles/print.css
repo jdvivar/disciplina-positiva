@@ -1,0 +1,32 @@
+@media print {
+  .print-hidden,
+  aside,
+  nav,
+  button,
+  [class*="lg:block"],
+  [class*="lg:hidden"] {
+    display: none !important;
+  }
+  main {
+    margin-left: 0 !important;
+    padding-top: 0 !important;
+  }
+  .print-journal {
+    max-width: 100%;
+    padding: 0;
+  }
+  .print-chapter {
+    page-break-before: always;
+  }
+  .print-chapter:first-child {
+    page-break-before: avoid;
+  }
+  .print-exercise {
+    page-break-inside: avoid;
+  }
+  .bg-sage-50 {
+    background-color: #f8faf9 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
