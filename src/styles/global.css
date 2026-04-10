@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  /* Sage Garden color palette */
+  --color-sage-50: #f0f7f4;
+  --color-sage-100: #d8f3dc;
+  --color-sage-200: #b7e4c7;
+  --color-sage-500: #52796f;
+  --color-sage-600: #40916c;
+  --color-sage-700: #2d6a4f;
+  --color-sage-900: #1b4332;
+
+  --color-surface: #e8f0ec;
+  --color-text: #2d3b35;
+  --color-muted: #9ca3af;
+
+  /* Typography */
+  --font-heading: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+}
