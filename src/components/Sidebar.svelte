@@ -96,25 +96,14 @@
                 ? 'bg-sage-100'
                 : 'hover:bg-sage-50'}"
           >
-            <span class="flex items-start gap-2">
-              <span class="flex-shrink-0 mt-0.5">
-                {#if status === 'done'}
-                  <span class="text-sage-600 text-[10px]">&#10003;</span>
-                {:else if status === 'in-progress'}
-                  <span class="block w-1.5 h-1.5 rounded-full bg-sage-600 mt-[3px]"></span>
-                {:else}
-                  <span class="block w-1.5 h-1.5 rounded-full bg-sage-200 mt-[3px]"></span>
-                {/if}
-              </span>
-              <span>
-                {#if chapter.chapter}
-                  <span class="block font-body text-[10px] uppercase tracking-wider {isCurrent ? 'text-sage-700' : 'text-sage-500'}">
-                    Capítulo {chapter.chapter}
-                  </span>
-                {/if}
-                <span class="block font-heading text-[12px] leading-snug {isCurrent ? 'text-sage-900 font-semibold' : status === 'done' ? 'text-sage-600' : 'text-sage-500'}">
-                  {chapter.title}
+            <span>
+              {#if chapter.chapter}
+                <span class="block font-body text-[10px] uppercase tracking-wider {isCurrent ? 'text-sage-700' : 'text-sage-500'}">
+                  Capítulo {chapter.chapter}
                 </span>
+              {/if}
+              <span class="block font-heading text-[12px] leading-snug {isCurrent ? 'text-sage-900 font-semibold' : 'text-sage-500'}">
+                {chapter.title}
               </span>
             </span>
           </button>
