@@ -86,7 +86,7 @@
           <h3 class="font-heading text-sm font-semibold text-sage-700 mb-1">
             {exercise.title}
           </h3>
-          <p class="font-body text-[13px] text-sage-500 italic mb-2">
+          <p class="font-body text-[13px] text-sage-500 mb-2">
             {exercise.instructions}
           </p>
 
@@ -139,7 +139,7 @@
 
           {:else}
             <div class="border-b border-dashed border-sage-200 min-h-[60px] flex items-end pb-1">
-              <p class="font-body text-xs text-sage-300 italic">
+              <p class="font-body text-xs text-sage-300">
                 Este espacio se completará con tu respuesta al ejercicio.
                 <a href="/es/{chapter.slug}" class="print-hidden text-sage-500 underline hover:text-sage-700">Ir al capítulo →</a>
               </p>
