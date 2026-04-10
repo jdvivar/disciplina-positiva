@@ -20,6 +20,12 @@
   --font-body: 'Inter', sans-serif;
 }
 
+/* Content headings — Fraunces serif */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Fraunces', serif;
+  color: var(--color-sage-900);
+}
+
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
   background: var(--color-sage-50);
