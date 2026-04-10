@@ -19,3 +19,39 @@
   --font-heading: 'Fraunces', serif;
   --font-body: 'Inter', sans-serif;
 }
+
+/* Blockquote styling — Soft Green Card with quote mark */
+blockquote {
+  background: var(--color-sage-50);
+  border-radius: 16px;
+  padding: 28px 32px 28px 56px;
+  margin: 24px 0;
+  position: relative;
+  border: none;
+  border-left: none;
+}
+
+blockquote::before {
+  content: '\201C';
+  font-family: 'Fraunces', serif;
+  font-size: 48px;
+  color: var(--color-sage-200);
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  line-height: 1;
+}
+
+blockquote p {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  color: var(--color-sage-900);
+  line-height: 1.6;
+  margin: 0 0 4px;
+}
+
+blockquote p:last-child {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--color-sage-500);
+}
