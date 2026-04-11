@@ -68,8 +68,8 @@
               Usted
             </span>
             <div class="flex justify-between mb-1">
-              <span class="font-body text-[11px] text-sage-500">{dimension.low}</span>
-              <span class="font-body text-[11px] text-sage-500">{dimension.high}</span>
+              <span class="font-body text-xs text-sage-500">{dimension.low}</span>
+              <span class="font-body text-xs text-sage-500">{dimension.high}</span>
             </div>
             <input
               type="range"
@@ -86,8 +86,8 @@
               Su hijo(a)
             </span>
             <div class="flex justify-between mb-1">
-              <span class="font-body text-[11px] text-sage-500">{dimension.low}</span>
-              <span class="font-body text-[11px] text-sage-500">{dimension.high}</span>
+              <span class="font-body text-xs text-sage-500">{dimension.low}</span>
+              <span class="font-body text-xs text-sage-500">{dimension.high}</span>
             </div>
             <input
               type="range"

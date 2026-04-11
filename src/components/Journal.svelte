@@ -83,7 +83,7 @@
         {#if chapter.chapter}
           <p class="font-body text-xs uppercase tracking-widest text-sage-500 mb-1">Capítulo {chapter.chapter}</p>
         {/if}
-        <h2 class="font-heading text-[17px] font-semibold text-sage-900">{chapter.title}</h2>
+        <h2 class="font-heading text-lg font-semibold text-sage-900">{chapter.title}</h2>
       </div>
 
       <!-- Exercises -->
@@ -95,7 +95,7 @@
           <h3 class="font-heading text-sm font-semibold text-sage-700 mb-1">
             {exercise.title}
           </h3>
-          <p class="font-body text-[13px] text-sage-500 mb-2">
+          <p class="font-body text-sm text-sage-500 mb-2">
             {exercise.instructions}
           </p>
 
@@ -120,8 +120,8 @@
               <div class="grid max-w-[300px]" style="grid-template-columns: 1fr auto; gap: 1px 16px;">
                 {#each dimensions as dim, i (dim)}
                   {#if values[i] !== undefined}
-                    <span class="font-body text-[13px] text-text">{dim}</span>
-                    <span class="font-body text-[13px] text-text">{values[i]}/5</span>
+                    <span class="font-body text-sm text-text">{dim}</span>
+                    <span class="font-body text-sm text-text">{values[i]}/5</span>
                   {/if}
                 {/each}
               </div>
@@ -132,7 +132,7 @@
               <div class="space-y-0.5">
                 {#each dimensions as dim, i (dim)}
                   {#if selfValues[i] !== undefined && childValues[i] !== undefined}
-                    <p class="font-body text-[13px] text-text">
+                    <p class="font-body text-sm text-text">
                       {dim} — Usted {selfValues[i]}/5, Hijo(a) {childValues[i]}/5
                     </p>
                   {/if}
@@ -141,7 +141,7 @@
             {/if}
 
             {#if exerciseProgress.savedAt}
-              <p class="mt-1 font-body text-[11px] text-muted">
+              <p class="mt-1 font-body text-xs text-muted">
                 {t('journal.saved-on')} {formatSavedDate(exerciseProgress.savedAt)}
               </p>
             {/if}

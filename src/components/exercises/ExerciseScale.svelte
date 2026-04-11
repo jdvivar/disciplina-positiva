@@ -57,8 +57,8 @@
           {dimension.name}
         </p>
         <div class="flex justify-between mb-1">
-          <span class="font-body text-[11px] text-sage-500 font-medium">{dimension.low}</span>
-          <span class="font-body text-[11px] text-sage-500 font-medium">{dimension.high}</span>
+          <span class="font-body text-xs text-sage-500 font-medium">{dimension.low}</span>
+          <span class="font-body text-xs text-sage-500 font-medium">{dimension.high}</span>
         </div>
         <input
           type="range"
@@ -68,8 +68,8 @@
           class="w-full accent-sage-600"
         />
         <div class="flex justify-between mt-2">
-          <span class="w-1/3 font-body text-[11px] text-sage-400 leading-snug">{dimension.lowDesc}</span>
-          <span class="w-1/3 font-body text-[11px] text-sage-400 leading-snug text-right">{dimension.highDesc}</span>
+          <span class="w-1/3 font-body text-xs text-sage-400 leading-snug">{dimension.lowDesc}</span>
+          <span class="w-1/3 font-body text-xs text-sage-400 leading-snug text-right">{dimension.highDesc}</span>
         </div>
       </div>
     {/each}

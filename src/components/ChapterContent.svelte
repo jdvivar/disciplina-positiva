@@ -33,8 +33,8 @@
           />
         </svg>
         <span>
-          <span class="block font-body text-[10px] uppercase tracking-wider text-sage-500">{t('chapter.prev', locale)}</span>
-          <span class="block font-heading text-[13px] font-semibold text-sage-900">{prevChapter.title}</span>
+          <span class="block font-body text-xs uppercase tracking-wider text-sage-500">{t('chapter.prev', locale)}</span>
+          <span class="block font-heading text-sm font-semibold text-sage-900">{prevChapter.title}</span>
         </span>
       </a>
     {:else}
@@ -47,8 +47,8 @@
         class="flex-1 flex items-center gap-2.5 bg-sage-600 rounded-xl px-4 py-3 no-underline text-right justify-end transition-colors hover:bg-sage-700"
       >
         <span>
-          <span class="block font-body text-[10px] uppercase tracking-wider text-sage-200">{t('chapter.next', locale)}</span>
-          <span class="block font-heading text-[13px] font-semibold text-white">{nextChapter.title}</span>
+          <span class="block font-body text-xs uppercase tracking-wider text-sage-200">{t('chapter.next', locale)}</span>
+          <span class="block font-heading text-sm font-semibold text-white">{nextChapter.title}</span>
         </span>
         <svg class="w-5 h-5 text-white flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
           <path
