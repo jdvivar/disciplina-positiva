@@ -130,6 +130,56 @@ main h3:first-child {
   margin-bottom: 0;
 }
 
+/* Pillars diagram */
+.pillars {
+  text-align: center;
+}
+
+.pillars strong {
+  font-family: 'Fraunces', serif;
+  font-size: 1.2em;
+  color: var(--color-sage-900);
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  background: white;
+  border-radius: 12px;
+}
+
+.pillar-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-sage-600);
+  color: white;
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pillar-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--color-sage-700);
+  text-align: center;
+  line-height: 1.4;
+}
+
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
   background: #e8f0ec;
