@@ -22,8 +22,8 @@
     { name: 'Intensidad', low: 'Bajo', high: 'Alto' },
   ];
 
-  let selfValues: number[] = $state(dimensions.map(() => 2));
-  let childValues: number[] = $state(dimensions.map(() => 2));
+  let selfValues: number[] = $state(dimensions.map(() => 50));
+  let childValues: number[] = $state(dimensions.map(() => 50));
   let notes = $state('');
   let saved = $state(false);
 
@@ -67,24 +67,17 @@
             <span class="mb-1 block font-body text-xs font-medium text-sage-600">
               Usted
             </span>
-            <span class="flex items-center gap-3">
-              <span class="w-16 text-right font-body text-xs text-sage-500">
-                {dimension.low}
-              </span>
-              <input
-                type="range"
-                min="1"
-                max="4"
-                bind:value={selfValues[index]}
-                class="flex-1 accent-sage-600"
-              />
-              <span class="w-16 font-body text-xs text-sage-500">
-                {dimension.high}
-              </span>
-              <span class="w-6 text-center font-body text-sm font-semibold text-sage-700">
-                {selfValues[index]}
-              </span>
-            </span>
+            <div class="flex justify-between mb-1">
+              <span class="font-body text-[11px] text-sage-500">{dimension.low}</span>
+              <span class="font-body text-[11px] text-sage-500">{dimension.high}</span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              bind:value={selfValues[index]}
+              class="w-full accent-sage-600"
+            />
           </label>
 
           <!-- Child slider -->
@@ -92,24 +85,17 @@
             <span class="mb-1 block font-body text-xs font-medium text-sage-600">
               Su hijo(a)
             </span>
-            <span class="flex items-center gap-3">
-              <span class="w-16 text-right font-body text-xs text-sage-500">
-                {dimension.low}
-              </span>
-              <input
-                type="range"
-                min="1"
-                max="4"
-                bind:value={childValues[index]}
-                class="flex-1 accent-sage-600"
-              />
-              <span class="w-16 font-body text-xs text-sage-500">
-                {dimension.high}
-              </span>
-              <span class="w-6 text-center font-body text-sm font-semibold text-sage-700">
-                {childValues[index]}
-              </span>
-            </span>
+            <div class="flex justify-between mb-1">
+              <span class="font-body text-[11px] text-sage-500">{dimension.low}</span>
+              <span class="font-body text-[11px] text-sage-500">{dimension.high}</span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              bind:value={childValues[index]}
+              class="w-full accent-sage-600"
+            />
           </label>
         </div>
       </div>

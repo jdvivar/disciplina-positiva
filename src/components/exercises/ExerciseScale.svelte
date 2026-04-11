@@ -22,7 +22,7 @@
     { name: 'Intensidad', low: 'Bajo', high: 'Alto', lowDesc: 'No muestro mis emociones, otra gente no sabe lo que pienso', highDesc: 'Cuando estoy triste, enojado o feliz, los otros se dan cuenta' },
   ];
 
-  let values: number[] = $state(dimensions.map(() => 2));
+  let values: number[] = $state(dimensions.map(() => 50));
   let notes = $state('');
   let saved = $state(false);
 
@@ -62,15 +62,14 @@
         </div>
         <input
           type="range"
-          min="1"
-          max="4"
+          min="0"
+          max="100"
           bind:value={values[index]}
           class="w-full accent-sage-600"
         />
-        <div class="flex items-start gap-4 mt-2">
-          <span class="flex-1 font-body text-[11px] text-sage-400 leading-snug">{dimension.lowDesc}</span>
-          <span class="font-body text-[28px] font-bold text-sage-700 leading-none flex-shrink-0">{values[index]}</span>
-          <span class="flex-1 font-body text-[11px] text-sage-400 leading-snug text-right">{dimension.highDesc}</span>
+        <div class="flex justify-between mt-2">
+          <span class="w-1/3 font-body text-[11px] text-sage-400 leading-snug">{dimension.lowDesc}</span>
+          <span class="w-1/3 font-body text-[11px] text-sage-400 leading-snug text-right">{dimension.highDesc}</span>
         </div>
       </div>
     {/each}
