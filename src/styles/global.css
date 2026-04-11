@@ -67,14 +67,16 @@ main h3:first-child {
 }
 
 /* Callout — highlighted block without quote mark */
-.callout {
-  background: var(--color-sage-50);
+.callout,
+[data-callout] {
+  background: #e8f0ec;
   border-radius: 16px;
   padding: 28px 32px;
   margin: 24px 0;
 }
 
-.callout p {
+.callout p,
+[data-callout] p {
   font-family: 'Fraunces', serif;
   font-size: 16px;
   color: var(--color-sage-900);
@@ -82,13 +84,14 @@ main h3:first-child {
   margin: 0 0 6px;
 }
 
-.callout p:last-child {
+.callout p:last-child,
+[data-callout] p:last-child {
   margin-bottom: 0;
 }
 
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
-  background: var(--color-sage-50);
+  background: #e8f0ec;
   border-radius: 16px;
   padding: 28px 32px 28px 56px;
   margin: 24px 0;
