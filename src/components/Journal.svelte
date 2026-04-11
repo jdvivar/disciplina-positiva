@@ -45,6 +45,15 @@
   }
 </script>
 
+<!-- Journal reminder callout — not printed -->
+<div class="print-hidden max-w-[620px] mx-auto mb-6">
+  <div class="callout" data-callout style="background: #e8f0ec; border-radius: 16px; padding: 28px 32px;">
+    <p style="font-family: 'Fraunces', serif; font-size: 16px; color: #1b4332; line-height: 1.6;">
+      Has completado la guía. No olvides guardar tu diario de crianza — puedes imprimirlo o volver a él cuando quieras.
+    </p>
+  </div>
+</div>
+
 <div class="print-journal max-w-[620px] mx-auto rounded-xl shadow-sm px-16 py-14" style="line-height: 1.8; background-color: #fefcf8;">
   <!-- Header -->
   <div class="print-header mb-10 pb-5 border-b border-sage-100">

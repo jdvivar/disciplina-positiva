@@ -72,6 +72,7 @@ main h3:first-child {
 .print-journal h3 {
   margin-top: 0;
   margin-bottom: 0.5em;
+  line-height: 1.2;
 }
 
 /* Callout — highlighted block without quote mark */
