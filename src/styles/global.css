@@ -130,54 +130,59 @@ main h3:first-child {
   margin-bottom: 0;
 }
 
-/* Pillars diagram */
-.pillars {
+/* Pillars pyramid diagram */
+.pillars-pyramid {
   text-align: center;
 }
 
-.pillars strong {
+.pillars-pyramid strong {
   font-family: 'Fraunces', serif;
   font-size: 1.2em;
   color: var(--color-sage-900);
 }
 
-.pillars-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.pillar {
+.pyramid {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 16px 12px;
-  background: white;
-  border-radius: 12px;
+  gap: 6px;
+  margin-top: 20px;
 }
 
-.pillar-number {
+.pyramid-row {
   display: flex;
-  align-items: center;
+  gap: 6px;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--color-sage-600);
-  color: white;
+  width: 100%;
+}
+
+.pyramid-block {
   font-family: 'Fraunces', serif;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
+  color: white;
+  padding: 16px 20px;
+  border-radius: 8px;
+  text-align: center;
 }
 
-.pillar-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  color: var(--color-sage-700);
-  text-align: center;
-  line-height: 1.4;
+.pyramid-top {
+  background: var(--color-sage-600);
+  width: 50%;
+}
+
+.pyramid-mid {
+  background: var(--color-sage-700);
+  width: 80%;
+}
+
+.pyramid-base-row {
+  width: 100%;
+}
+
+.pyramid-base {
+  background: var(--color-sage-900);
+  flex: 1;
 }
 
 /* Blockquote styling — Soft Green Card with quote mark */
