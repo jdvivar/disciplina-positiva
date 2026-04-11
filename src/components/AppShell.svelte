@@ -98,7 +98,7 @@
   <!-- Spacer for mobile top bar -->
   <div class="lg:hidden h-12"></div>
 
-  <div class="max-w-3xl mx-auto px-6 pt-48 pb-40">
+  <div class="max-w-[65ch] mx-auto px-6 pt-48 pb-40">
     {@render children()}
   </div>
 </main>
