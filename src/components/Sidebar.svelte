@@ -122,12 +122,14 @@
     </a>
   </div>
 
-  <!-- Overall progress -->
-  <div class="px-5 py-3 border-t border-sage-100 flex items-center">
-    <ProgressBar
-      completed={totalCompleted}
-      total={totalExercises}
-      label="{totalCompleted} {t('progress.of', lang)} {totalExercises} {t('progress.exercises', lang)}"
-    />
+  <!-- Overall progress — matches sticky bottom nav height -->
+  <div class="px-5 border-t border-sage-100" style="min-height: 56px; display: flex; align-items: center;">
+    <div class="w-full">
+      <ProgressBar
+        completed={totalCompleted}
+        total={totalExercises}
+        label="{totalCompleted} {t('progress.of', lang)} {totalExercises} {t('progress.exercises', lang)}"
+      />
+    </div>
   </div>
 </nav>

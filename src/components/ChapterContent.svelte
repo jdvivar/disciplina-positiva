@@ -23,8 +23,8 @@
 </script>
 
 <!-- Prev/Next navigation — fixed bottom bar -->
-<nav class="fixed bottom-0 left-0 lg:left-[220px] right-0 z-20 border-t border-sage-100 px-6 py-3" style="background-color: #f7faf8;">
-  <div class="max-w-[65ch] mx-auto flex items-center justify-between">
+<nav class="fixed bottom-0 left-0 lg:left-[220px] right-0 z-20 border-t border-sage-100 px-6" style="background-color: #f7faf8; min-height: 56px; display: flex; align-items: center;">
+  <div class="max-w-[65ch] mx-auto flex items-center justify-between w-full">
     {#if prevChapter}
       <a
         href="/{locale}/{prevChapter.slug}"

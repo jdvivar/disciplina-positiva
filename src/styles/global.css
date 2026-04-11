@@ -33,6 +33,12 @@ main h2 { font-size: 2.2em; }
 main h3 { font-size: 1.8em; }
 main h4 { font-size: 1.5em; }
 
+main h1:first-child,
+main h2:first-child,
+main h3:first-child {
+  margin-top: 0;
+}
+
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
   background: var(--color-sage-50);
