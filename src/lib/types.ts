@@ -1,10 +1,11 @@
 export interface ExerciseData {
   id: string;
   title: string;
-  type: 'open-text' | 'guided-list' | 'self-assessment' | 'comparison' | 'numbered-list' | 'multi-section';
+  type: 'open-text' | 'guided-list' | 'self-assessment' | 'comparison' | 'numbered-list' | 'multi-section' | 'radio';
   instructions: string;
   listPrompt?: string;
   questions?: string[];
+  radioQuestions?: { question: string; options: string[] }[];
 }
 
 export interface ExerciseProgress {

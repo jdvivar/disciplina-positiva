@@ -6,6 +6,7 @@
   import ExerciseComparison from './exercises/ExerciseComparison.svelte';
   import ExerciseNumberedList from './exercises/ExerciseNumberedList.svelte';
   import ExerciseMultiSection from './exercises/ExerciseMultiSection.svelte';
+  import ExerciseRadio from './exercises/ExerciseRadio.svelte';
 
   interface Props {
     exercise: ExerciseData;
@@ -27,4 +28,6 @@
   <ExerciseNumberedList id={exercise.id} title={exercise.title} instructions={exercise.instructions} {onSave} />
 {:else if exercise.type === 'multi-section'}
   <ExerciseMultiSection id={exercise.id} title={exercise.title} instructions={exercise.instructions} listPrompt={exercise.listPrompt} questions={exercise.questions} {onSave} />
+{:else if exercise.type === 'radio'}
+  <ExerciseRadio id={exercise.id} title={exercise.title} instructions={exercise.instructions} radioQuestions={exercise.radioQuestions} {onSave} />
 {/if}
