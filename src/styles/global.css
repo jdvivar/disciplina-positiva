@@ -66,6 +66,26 @@ main h3:first-child {
   font-size: 1.1em;
 }
 
+/* Callout — highlighted block without quote mark */
+.callout {
+  background: var(--color-sage-50);
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin: 24px 0;
+}
+
+.callout p {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  color: var(--color-sage-900);
+  line-height: 1.6;
+  margin: 0 0 6px;
+}
+
+.callout p:last-child {
+  margin-bottom: 0;
+}
+
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
   background: var(--color-sage-50);
