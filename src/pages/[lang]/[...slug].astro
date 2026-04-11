@@ -95,75 +95,11 @@ const exercisesJson = JSON.stringify(currentMeta.exercises);
 </BaseLayout>
 
 <script>
-  // Client-side: Replace exercise placeholder divs with interactive Svelte components
-  // This runs after Astro has rendered the MDX content server-side
-  import { mount, type Component } from 'svelte';
-  import ExerciseRenderer from '../../components/ExerciseRenderer.svelte';
-  import type { ExerciseData } from '../../lib/types';
+  import { hydrateExercises } from '../../lib/hydrate-exercises';
 
-  const ExerciseRendererComponent = ExerciseRenderer as unknown as Component<{ exercise: ExerciseData; onSave?: () => void }>;
-
-  function hydrateExercises() {
-    const chapterPage = document.querySelector('.chapter-page');
-    if (!chapterPage) return;
-
-    const chapterNumber = chapterPage.getAttribute('data-chapter-number') ?? '0';
-    const exerciseDivs = chapterPage.querySelectorAll<HTMLDivElement>('[data-exercise-id]');
-    let exerciseIndex = 0;
-
-    exerciseDivs.forEach((div) => {
-      exerciseIndex++;
-      const id = div.getAttribute('data-exercise-id') ?? '';
-      const type = (div.getAttribute('data-exercise-type') ?? 'open-text') as ExerciseData['type'];
-      const title = div.getAttribute('data-exercise-title') ?? '';
-      const instructions = div.textContent?.trim() ?? '';
-      const listPrompt = div.getAttribute('data-exercise-list-prompt') ?? undefined;
-      const listCountAttr = div.getAttribute('data-exercise-list-count');
-      const listCount = listCountAttr !== null ? parseInt(listCountAttr, 10) : undefined;
-      let questions: string[] | undefined;
-      try {
-        const q = div.getAttribute('data-exercise-questions');
-        if (q) questions = JSON.parse(q);
-      } catch {}
-      let radioQuestions: { question: string; options: string[] }[] | undefined;
-      try {
-        const rq = div.getAttribute('data-exercise-radio-questions');
-        if (rq) radioQuestions = JSON.parse(rq);
-      } catch {}
-
-      const number = chapterNumber !== '0' ? `${chapterNumber}-${exerciseIndex}` : undefined;
-      const exercise: ExerciseData = { id, type, title, instructions, number, listPrompt, listCount, questions, radioQuestions };
-
-      // Create a wrapper element for the Svelte component
-      const wrapper = document.createElement('div');
-      wrapper.className = 'exercise-slot';
-      div.replaceWith(wrapper);
-
-      mount(ExerciseRendererComponent, {
-        target: wrapper,
-        props: {
-          exercise,
-          onSave: () => {
-            // Notify AppShell to refresh sidebar progress
-            const appShell = document.querySelector('[data-appshell]');
-            if (appShell) {
-              window.dispatchEvent(new CustomEvent('exercise-saved'));
-            }
-          },
-        },
-      });
-    });
-  }
-
-  // Run hydration when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', hydrateExercises);
   } else {
     hydrateExercises();
   }
-
-  // Re-hydrate on client-side navigation
-  window.addEventListener('app-navigate', () => {
-    requestAnimationFrame(hydrateExercises);
-  });
 </script>
