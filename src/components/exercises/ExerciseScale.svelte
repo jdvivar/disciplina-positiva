@@ -24,7 +24,7 @@
     'Sensibilidad',
   ];
 
-  let values: number[] = $state(dimensions.map(() => 3));
+  let values: number[] = $state(dimensions.map(() => 2));
   let notes = $state('');
   let saved = $state(false);
 
@@ -65,7 +65,7 @@
           <input
             type="range"
             min="1"
-            max="5"
+            max="4"
             bind:value={values[index]}
             class="flex-1 accent-sage-600"
           />
