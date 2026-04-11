@@ -103,12 +103,13 @@ blockquote p::after {
   content: none !important;
 }
 
-blockquote p:last-child {
+/* Attribution: only style last-child differently when there are multiple paragraphs */
+blockquote p:not(:only-child):last-child {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   color: var(--color-sage-500);
 }
 
-blockquote p:last-child::before {
+blockquote p:not(:only-child):last-child::before {
   content: '— ' !important;
 }
