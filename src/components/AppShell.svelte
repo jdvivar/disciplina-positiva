@@ -37,7 +37,7 @@
 </script>
 
 <!-- Desktop sidebar (lg+) -->
-<div class="hidden lg:block fixed inset-y-0 left-0 w-[220px] z-30">
+<div class="hidden lg:block fixed inset-y-0 left-0 w-[280px] z-30">
   <Sidebar
     {chapters}
     {currentSlug}
@@ -94,7 +94,7 @@
 {/if}
 
 <!-- Main content -->
-<main class="lg:ml-[220px] min-h-screen" style="background-color: #f7faf8;">
+<main class="lg:ml-[280px] min-h-screen" style="background-color: #f7faf8;">
   <!-- Spacer for mobile top bar -->
   <div class="lg:hidden h-12"></div>
 

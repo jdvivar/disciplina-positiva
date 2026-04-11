@@ -40,14 +40,10 @@ main h3:first-child {
 }
 
 /* Exercise cards: tighter heading spacing */
-[data-exercise-id] h1,
-[data-exercise-id] h2,
-[data-exercise-id] h3,
-[data-exercise-id] h4,
-.print-exercise h1,
-.print-exercise h2,
-.print-exercise h3,
-.print-exercise h4 {
+.bg-sage-50 h1,
+.bg-sage-50 h2,
+.bg-sage-50 h3,
+.bg-sage-50 h4 {
   margin-top: 0;
   margin-bottom: 0.5em;
   font-size: 1.1em;

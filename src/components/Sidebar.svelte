@@ -65,8 +65,8 @@
 <nav class="flex flex-col h-full bg-sage-50 border-r border-sage-100">
   <!-- Logo / Title -->
   <div class="px-5 pt-6 pb-4">
-    <a href="/" class="flex items-center gap-2 font-heading text-base font-semibold text-sage-700 leading-tight hover:text-sage-900 transition-colors">
-      <svg class="w-6 h-6 flex-shrink-0" viewBox="6 10 68 60" fill="none">
+    <a href="/" class="flex items-center gap-3 font-heading text-lg font-semibold text-sage-700 leading-tight hover:text-sage-900 transition-colors">
+      <svg class="w-7 h-7 flex-shrink-0" viewBox="6 10 68 60" fill="none">
         <path d="M12 56C12 56 18 46 28 42C34 40 38 39 42 39C46 39 52 40 58 44C62 47 64 52 62 56C58 62 48 64 40 64C30 64 20 62 12 56Z" fill="#52796f"/>
         <path d="M40 39V14" stroke="#40916c" stroke-width="5" stroke-linecap="round"/>
         <path d="M40 28C34 22 24 19 21 22C18 25 22 34 30 34C35 34 38 31 40 28Z" fill="#40916c"/>
@@ -92,11 +92,11 @@
           >
             <span>
               {#if chapter.chapter}
-                <span class="block font-body text-[10px] uppercase tracking-wider transition-colors {isCurrent ? 'text-sage-700' : 'text-sage-500 group-hover:text-sage-700'}">
+                <span class="block font-body text-xs uppercase tracking-wider transition-colors {isCurrent ? 'text-sage-700' : 'text-sage-500 group-hover:text-sage-700'}">
                   Capítulo {chapter.chapter}
                 </span>
               {/if}
-              <span class="block font-heading text-[12px] leading-snug transition-colors {isCurrent ? 'text-sage-900 font-semibold' : 'text-sage-500 group-hover:text-sage-700'}">
+              <span class="block font-heading text-sm leading-snug transition-colors {isCurrent ? 'text-sage-900 font-semibold' : 'text-sage-500 group-hover:text-sage-700'}">
                 {chapter.title}
               </span>
             </span>
@@ -110,13 +110,13 @@
   <div class="px-3 pb-2 space-y-0.5">
     <a
       href="/{lang}/diario"
-      class="block px-2 py-1.5 rounded-md text-[11px] text-sage-600 hover:bg-sage-100 transition-colors no-underline"
+      class="block px-2 py-1.5 rounded-md text-sm text-sage-600 hover:bg-sage-100 transition-colors no-underline"
     >
       {t('nav.journal', lang)}
     </a>
     <a
       href="/{lang}/about"
-      class="block px-2 py-1.5 rounded-md text-[11px] text-sage-500 hover:bg-sage-100 transition-colors no-underline"
+      class="block px-2 py-1.5 rounded-md text-sm text-sage-500 hover:bg-sage-100 transition-colors no-underline"
     >
       {t('nav.about', lang)}
     </a>
