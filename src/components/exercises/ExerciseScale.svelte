@@ -52,31 +52,25 @@
 
   <div class="space-y-4">
     {#each dimensions as dimension, index (dimension)}
-      <div class="rounded-lg bg-white p-4">
-        <p class="mb-2 font-body text-sm font-medium text-sage-700">
+      <div class="rounded-lg bg-white p-5">
+        <p class="mb-3 font-body text-sm font-semibold text-sage-700">
           {dimension.name}
         </p>
-        <label class="flex items-center gap-3">
-          <span class="w-24 text-right font-body text-xs text-sage-500">
-            {dimension.low}
-          </span>
-          <input
-            type="range"
-            min="1"
-            max="4"
-            bind:value={values[index]}
-            class="flex-1 accent-sage-600"
-          />
-          <span class="w-24 font-body text-xs text-sage-500">
-            {dimension.high}
-          </span>
-          <span class="w-6 text-center font-body text-sm font-semibold text-sage-700">
-            {values[index]}
-          </span>
-        </label>
-        <div class="flex justify-between mt-1 px-24">
-          <span class="font-body text-[10px] text-sage-400 max-w-[120px]">{dimension.lowDesc}</span>
-          <span class="font-body text-[10px] text-sage-400 max-w-[120px] text-right">{dimension.highDesc}</span>
+        <div class="flex justify-between mb-1">
+          <span class="font-body text-[11px] text-sage-500 font-medium">{dimension.low}</span>
+          <span class="font-body text-[11px] text-sage-500 font-medium">{dimension.high}</span>
+        </div>
+        <input
+          type="range"
+          min="1"
+          max="4"
+          bind:value={values[index]}
+          class="w-full accent-sage-600"
+        />
+        <div class="flex items-start gap-4 mt-2">
+          <span class="flex-1 font-body text-[11px] text-sage-400 leading-snug">{dimension.lowDesc}</span>
+          <span class="font-body text-[28px] font-bold text-sage-700 leading-none flex-shrink-0">{values[index]}</span>
+          <span class="flex-1 font-body text-[11px] text-sage-400 leading-snug text-right">{dimension.highDesc}</span>
         </div>
       </div>
     {/each}
