@@ -66,6 +66,14 @@ main h3:first-child {
   font-size: 1.1em;
 }
 
+/* Journal page: tighter heading spacing */
+.print-journal h1,
+.print-journal h2,
+.print-journal h3 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
 /* Callout — highlighted block without quote mark */
 .callout,
 [data-callout] {
