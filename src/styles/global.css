@@ -66,13 +66,26 @@ main h3:first-child {
   font-size: 1.1em;
 }
 
-/* Journal page: tighter heading spacing */
-.print-journal h1,
-.print-journal h2,
+/* Journal page: tighter heading spacing and smaller fonts */
+.print-journal h1 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+  font-size: 1.5em;
+}
+
+.print-journal h2 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+  font-size: 1.2em;
+}
+
 .print-journal h3 {
   margin-top: 0;
   margin-bottom: 0.5em;
   line-height: 1.2;
+  font-size: 1em;
 }
 
 /* Callout — highlighted block without quote mark */
