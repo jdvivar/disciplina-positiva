@@ -29,15 +29,19 @@ export function hydrateExercises() {
       const rq = div.getAttribute('data-exercise-radio-questions');
       if (rq) radioQuestions = JSON.parse(rq);
     } catch {}
+    let scaleDescriptions: { lowDesc: string; highDesc: string }[] | undefined;
+    try {
+      const sd = div.getAttribute('data-exercise-scale-descriptions');
+      if (sd) scaleDescriptions = JSON.parse(sd);
+    } catch {}
 
     const number = chapterNumber !== '0' ? `${chapterNumber}-${exerciseIndex}` : undefined;
-    const exercise: ExerciseData = { id, type, title, instructions, number, listPrompt, listCount, questions, radioQuestions };
+    const exercise: ExerciseData = { id, type, title, instructions, number, listPrompt, listCount, questions, radioQuestions, scaleDescriptions };
 
     const wrapper = document.createElement('div');
     wrapper.className = 'exercise-slot';
     div.replaceWith(wrapper);
 
-    // @ts-expect-error Astro's @astrojs/svelte wraps component types with PropsWithClientDirectives, incompatible with Svelte's mount(). This is a known Astro+Svelte type mismatch — runtime works correctly.
     mount(ExerciseRenderer, {
       target: wrapper,
       props: {

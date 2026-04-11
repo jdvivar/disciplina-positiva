@@ -7,6 +7,7 @@
   import ExerciseNumberedList from './exercises/ExerciseNumberedList.svelte';
   import ExerciseMultiSection from './exercises/ExerciseMultiSection.svelte';
   import ExerciseRadio from './exercises/ExerciseRadio.svelte';
+  import TemperamentComparison from './exercises/TemperamentComparison.svelte';
 
   interface Props {
     exercise: ExerciseData;
@@ -21,7 +22,7 @@
 {:else if exercise.type === 'guided-list'}
   <ExerciseList id={exercise.id} title={exercise.title} instructions={exercise.instructions} number={exercise.number} {onSave} />
 {:else if exercise.type === 'self-assessment'}
-  <ExerciseScale id={exercise.id} title={exercise.title} instructions={exercise.instructions} number={exercise.number} {onSave} />
+  <ExerciseScale id={exercise.id} title={exercise.title} instructions={exercise.instructions} scaleDescriptions={exercise.scaleDescriptions} number={exercise.number} {onSave} />
 {:else if exercise.type === 'comparison'}
   <ExerciseComparison id={exercise.id} title={exercise.title} instructions={exercise.instructions} number={exercise.number} {onSave} />
 {:else if exercise.type === 'numbered-list'}
@@ -30,4 +31,6 @@
   <ExerciseMultiSection id={exercise.id} title={exercise.title} instructions={exercise.instructions} listPrompt={exercise.listPrompt} listCount={exercise.listCount} questions={exercise.questions} number={exercise.number} {onSave} />
 {:else if exercise.type === 'radio'}
   <ExerciseRadio id={exercise.id} title={exercise.title} instructions={exercise.instructions} radioQuestions={exercise.radioQuestions} number={exercise.number} {onSave} />
+{:else if exercise.type === 'temperament-comparison'}
+  <TemperamentComparison />
 {/if}

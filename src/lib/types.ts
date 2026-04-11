@@ -1,13 +1,14 @@
 export interface ExerciseData {
   id: string;
   title: string;
-  type: 'open-text' | 'guided-list' | 'self-assessment' | 'comparison' | 'numbered-list' | 'multi-section' | 'radio';
+  type: 'open-text' | 'guided-list' | 'self-assessment' | 'comparison' | 'numbered-list' | 'multi-section' | 'radio' | 'temperament-comparison';
   instructions: string;
   number?: string;
   listPrompt?: string;
   listCount?: number;
   questions?: string[];
   radioQuestions?: { question: string; options: string[] }[];
+  scaleDescriptions?: { lowDesc: string; highDesc: string }[];
 }
 
 export interface ExerciseProgress {

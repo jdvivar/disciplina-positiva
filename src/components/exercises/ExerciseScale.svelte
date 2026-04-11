@@ -8,10 +8,11 @@
     title: string;
     instructions: string;
     number?: string;
+    scaleDescriptions?: { lowDesc: string; highDesc: string }[];
     onSave?: () => void;
   }
 
-  let { id, title, instructions, number, onSave }: Props = $props();
+  let { id, title, instructions, number, scaleDescriptions, onSave }: Props = $props();
 
   const dimensions = [
     { name: 'Nivel de actividad', low: 'Bajo', high: 'Alto', lowDesc: 'Prefiero actividades tranquilas', highDesc: 'Prefiero estar físicamente activo/a' },
@@ -26,12 +27,14 @@
   let values: number[] = $state(dimensions.map(() => 50));
   let notes = $state('');
   let saved = $state(false);
+  let savedAt = $state<string | null>(null);
 
   $effect(() => {
     const progress = getExerciseProgress(id);
     if (progress?.answers?.values) {
       values = [...(progress.answers.values as number[])];
       saved = progress.completed;
+      savedAt = progress.savedAt;
     }
     notes = (progress?.answers?.notes as string) ?? '';
   });
@@ -39,13 +42,14 @@
   function handleSave() {
     saveExercise(id, { values, notes });
     saved = true;
+    savedAt = new Date().toISOString();
     onSave?.();
   }
 </script>
 
-<div class="my-6 rounded-2xl bg-sage-50 p-6 border-3 border-sage-600">
-  <div class="mb-3 flex items-center gap-2">
-    <ExerciseBadge completed={saved} number={number} />
+<div class="exercise-card my-6 rounded-2xl p-6 border-3 {saved ? 'bg-[#f7faf8] border-sage-200' : 'bg-sage-50 border-sage-600'}">
+  <div class="mb-3">
+    <ExerciseBadge number={number} />
   </div>
 
   <h3 class="mb-2 font-heading text-lg font-semibold text-sage-700">{title}</h3>
@@ -69,8 +73,8 @@
           class="w-full accent-sage-600"
         />
         <div class="flex justify-between mt-2">
-          <span class="w-1/3 font-body text-xs text-sage-400 leading-snug">{dimension.lowDesc}</span>
-          <span class="w-1/3 font-body text-xs text-sage-400 leading-snug text-right">{dimension.highDesc}</span>
+          <span class="w-1/3 font-body text-xs text-sage-400 leading-snug">{scaleDescriptions?.[index]?.lowDesc ?? dimension.lowDesc}</span>
+          <span class="w-1/3 font-body text-xs text-sage-400 leading-snug text-right">{scaleDescriptions?.[index]?.highDesc ?? dimension.highDesc}</span>
         </div>
       </div>
     {/each}
@@ -87,12 +91,18 @@
     ></textarea>
   </div>
 
-  <div class="mt-4">
+  <div class="mt-4 flex items-center gap-3">
     <button
       onclick={handleSave}
       class="rounded-lg bg-sage-600 px-4 py-2 font-body text-sm font-medium text-white hover:bg-sage-700"
     >
-      {saved ? t('exercise.saved') : t('exercise.save')}
+      {t('exercise.save')}
     </button>
+    {#if saved && savedAt}
+      <span class="ml-auto flex items-center gap-2">
+        <span class="font-body text-xs text-sage-400">{new Date(savedAt).toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+        <span class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-sage-600 text-white text-xs font-bold">&#10003;</span>
+      </span>
+    {/if}
   </div>
 </div>

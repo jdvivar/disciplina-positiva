@@ -17,12 +17,14 @@
   let newItem = $state('');
   let notes = $state('');
   let saved = $state(false);
+  let savedAt = $state<string | null>(null);
 
   $effect(() => {
     const progress = getExerciseProgress(id);
     if (progress?.answers?.items) {
       items = [...(progress.answers.items as string[])];
       saved = progress.completed;
+      savedAt = progress.savedAt;
     }
     notes = (progress?.answers?.notes as string) ?? '';
   });
@@ -56,13 +58,14 @@
     validationMessage = '';
     saveExercise(id, { items, notes });
     saved = true;
+    savedAt = new Date().toISOString();
     onSave?.();
   }
 </script>
 
-<div class="my-6 rounded-2xl bg-sage-50 p-6 border-3 border-sage-600">
-  <div class="mb-3 flex items-center gap-2">
-    <ExerciseBadge completed={saved} number={number} />
+<div class="exercise-card my-6 rounded-2xl p-6 border-3 {saved ? 'bg-[#f7faf8] border-sage-200' : 'bg-sage-50 border-sage-600'}">
+  <div class="mb-3">
+    <ExerciseBadge number={number} />
   </div>
 
   <h3 class="mb-2 font-heading text-lg font-semibold text-sage-700">{title}</h3>
@@ -117,10 +120,16 @@
       onclick={handleSave}
       class="rounded-lg bg-sage-600 px-4 py-2 font-body text-sm font-medium text-white hover:bg-sage-700"
     >
-      {saved ? t('exercise.saved') : t('exercise.save')}
+      {t('exercise.save')}
     </button>
     {#if validationMessage}
       <span class="font-body text-sm text-sage-500">{validationMessage}</span>
+    {/if}
+    {#if saved && savedAt}
+      <span class="ml-auto flex items-center gap-2">
+        <span class="font-body text-xs text-sage-400">{new Date(savedAt).toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+        <span class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-sage-600 text-white text-xs font-bold">&#10003;</span>
+      </span>
     {/if}
   </div>
 </div>
