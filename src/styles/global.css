@@ -39,6 +39,20 @@ main h3:first-child {
   margin-top: 0;
 }
 
+/* Exercise cards: tighter heading spacing */
+[data-exercise-id] h1,
+[data-exercise-id] h2,
+[data-exercise-id] h3,
+[data-exercise-id] h4,
+.print-exercise h1,
+.print-exercise h2,
+.print-exercise h3,
+.print-exercise h4 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+}
+
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
   background: var(--color-sage-50);

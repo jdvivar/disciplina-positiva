@@ -123,7 +123,7 @@
   </div>
 
   <!-- Overall progress — matches sticky bottom nav height -->
-  <div class="px-5 border-t border-sage-100" style="min-height: 56px; display: flex; align-items: center;">
+  <div class="px-5 border-t border-sage-100" style="min-height: 80px; display: flex; align-items: center;">
     <div class="w-full">
       <ProgressBar
         completed={totalCompleted}
