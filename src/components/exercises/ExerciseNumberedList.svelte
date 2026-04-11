@@ -65,7 +65,7 @@
   </div>
 
   <div class="mt-5">
-    <p class="mb-2 font-body text-xs font-medium text-sage-500">Notas personales</p>
+    <p class="mb-2 font-body text-xs font-medium text-sage-500">Para tu diario: ¿qué aprendiste con este ejercicio?</p>
     <textarea
       bind:value={notes}
       rows="2"
