@@ -201,6 +201,26 @@ main h3:first-child {
   max-width: 360px;
 }
 
+.pyramid-current {
+  position: relative;
+}
+
+.pyramid-current::before {
+  content: 'Estás aquí →';
+  position: absolute;
+  left: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: white;
+  background: var(--color-sage-600);
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
   background: #e8f0ec;
