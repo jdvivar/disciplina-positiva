@@ -96,7 +96,7 @@
                   Capítulo {chapter.chapter}
                 </span>
               {/if}
-              <span class="block font-heading text-sm leading-snug transition-colors {isCurrent ? 'text-sage-900 font-semibold' : 'text-sage-500 group-hover:text-sage-700'}">
+              <span class="block font-heading text-sm leading-snug transition-colors {isCurrent ? 'text-sage-900' : 'text-sage-500 group-hover:text-sage-700'}">
                 {chapter.title}
               </span>
             </span>
