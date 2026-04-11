@@ -21,6 +21,19 @@
   --font-body: 'Inter', sans-serif;
 }
 
+/* Content links */
+main a:not(.no-underline) {
+  color: var(--color-sage-700);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-sage-200);
+  padding-bottom: 1px;
+  transition: border-color 0.15s;
+}
+
+main a:not(.no-underline):hover {
+  border-bottom-color: var(--color-sage-600);
+}
+
 /* Chapter label — small uppercase above title */
 .chapter-label {
   font-family: 'Inter', sans-serif;
