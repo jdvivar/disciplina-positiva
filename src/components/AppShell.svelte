@@ -29,21 +29,6 @@
     return countCompleted(allIds);
   });
 
-  function handleNavigate(slug: string) {
-    const lang = getLocale();
-    window.location.href = `/${lang}/${slug}`;
-  }
-
-  function handleJournal() {
-    const lang = getLocale();
-    window.location.href = `/${lang}/diario`;
-  }
-
-  function handleAbout() {
-    const lang = getLocale();
-    window.location.href = `/${lang}/about`;
-  }
-
   // Called by exercises after saving — refreshes sidebar progress
   export function onSave() {
     sidebarRef?.refreshProgress();
@@ -56,9 +41,7 @@
   <Sidebar
     {chapters}
     {currentSlug}
-    onNavigate={handleNavigate}
-    onJournal={handleJournal}
-    onAbout={handleAbout}
+    lang={locale}
     bind:this={sidebarRef}
   />
 </div>
@@ -104,9 +87,7 @@
     <Sidebar
       {chapters}
       {currentSlug}
-      onNavigate={handleNavigate}
-      onJournal={handleJournal}
-      onAbout={handleAbout}
+      lang={locale}
       bind:this={mobileSidebarRef}
     />
   </div>
@@ -117,7 +98,7 @@
   <!-- Spacer for mobile top bar -->
   <div class="lg:hidden h-12"></div>
 
-  <div class="max-w-3xl mx-auto px-6 py-10">
+  <div class="max-w-3xl mx-auto px-6 pt-48 pb-40">
     {@render children()}
   </div>
 </main>
