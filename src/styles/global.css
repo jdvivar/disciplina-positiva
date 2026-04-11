@@ -185,6 +185,12 @@ main h3:first-child {
   flex: 1;
 }
 
+.pyramid-foundation {
+  background: var(--color-sage-900);
+  width: 100%;
+  opacity: 0.85;
+}
+
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
   background: #e8f0ec;
