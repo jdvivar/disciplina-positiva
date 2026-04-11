@@ -34,6 +34,12 @@ main a:not(.no-underline):hover {
   border-bottom-color: var(--color-sage-600);
 }
 
+main a[target="_blank"]::after {
+  content: ' ↗';
+  font-size: 0.75em;
+  color: var(--color-sage-500);
+}
+
 /* Chapter label — small uppercase above title */
 .chapter-label {
   font-family: 'Inter', sans-serif;
