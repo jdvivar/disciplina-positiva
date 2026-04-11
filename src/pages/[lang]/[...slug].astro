@@ -112,8 +112,14 @@ const exercisesJson = JSON.stringify(currentMeta.exercises);
       const type = (div.getAttribute('data-exercise-type') ?? 'open-text') as ExerciseData['type'];
       const title = div.getAttribute('data-exercise-title') ?? '';
       const instructions = div.textContent?.trim() ?? '';
+      const listPrompt = div.getAttribute('data-exercise-list-prompt') ?? undefined;
+      let questions: string[] | undefined;
+      try {
+        const q = div.getAttribute('data-exercise-questions');
+        if (q) questions = JSON.parse(q);
+      } catch {}
 
-      const exercise: ExerciseData = { id, type, title, instructions };
+      const exercise: ExerciseData = { id, type, title, instructions, listPrompt, questions };
 
       // Create a wrapper element for the Svelte component
       const wrapper = document.createElement('div');
