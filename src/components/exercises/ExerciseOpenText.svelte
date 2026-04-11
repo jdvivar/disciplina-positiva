@@ -13,6 +13,7 @@
   let { id, title, instructions, onSave }: Props = $props();
 
   let text = $state('');
+  let notes = $state('');
   let saved = $state(false);
 
   $effect(() => {
@@ -21,6 +22,7 @@
       text = progress.answers.text as string;
       saved = progress.completed;
     }
+    notes = (progress?.answers?.notes as string) ?? '';
   });
 
   let validationMessage = $state('');
@@ -31,7 +33,7 @@
       return;
     }
     validationMessage = '';
-    saveExercise(id, { text });
+    saveExercise(id, { text, notes });
     saved = true;
     onSave?.();
   }
@@ -53,6 +55,17 @@
     class="w-full resize-y rounded-lg border border-sage-200 bg-white p-3 font-body text-sm text-text
       placeholder:text-muted focus:border-sage-600 focus:ring-1 focus:ring-sage-600 focus:outline-none"
   ></textarea>
+
+  <div class="mt-5">
+    <p class="mb-2 font-body text-xs font-medium text-sage-500">Notas personales</p>
+    <textarea
+      bind:value={notes}
+      rows="2"
+      placeholder="Escribe aquí tus notas o reflexiones adicionales..."
+      class="w-full resize-y rounded-lg border border-sage-200 bg-white p-3 font-body text-sm text-text
+        placeholder:text-muted focus:border-sage-600 focus:ring-1 focus:ring-sage-600 focus:outline-none"
+    ></textarea>
+  </div>
 
   <div class="mt-4 flex items-center gap-3">
     <button
