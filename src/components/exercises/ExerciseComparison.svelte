@@ -13,15 +13,13 @@
   let { id, title, instructions, onSave }: Props = $props();
 
   const dimensions = [
-    'Nivel de actividad',
-    'Regularidad',
-    'Reacción inicial',
-    'Adaptabilidad',
-    'Intensidad',
-    'Estado de ánimo',
-    'Persistencia',
-    'Distracción',
-    'Sensibilidad',
+    { name: 'Nivel de actividad', low: 'Bajo', high: 'Alto' },
+    { name: 'Regularidad', low: 'Bajo', high: 'Alto' },
+    { name: 'Respuesta a las nuevas situaciones', low: 'Rechazo', high: 'Aproximación' },
+    { name: 'Adaptabilidad', low: 'Bajo', high: 'Alto' },
+    { name: 'Distractibilidad', low: 'Bajo', high: 'Alto' },
+    { name: 'Persistencia', low: 'Bajo', high: 'Alto' },
+    { name: 'Intensidad', low: 'Bajo', high: 'Alto' },
   ];
 
   let selfValues: number[] = $state(dimensions.map(() => 2));
@@ -59,9 +57,9 @@
   <p class="mb-4 font-body text-sm leading-relaxed text-sage-500">{instructions}</p>
 
   <div class="space-y-4">
-    {#each dimensions as dimension, index (dimension)}
+    {#each dimensions as dimension, index (dimension.name)}
       <div class="rounded-lg bg-white p-4">
-        <h4 class="mb-3 font-body text-sm font-medium text-sage-700">{dimension}</h4>
+        <h4 class="mb-3 font-body text-sm font-medium text-sage-700">{dimension.name}</h4>
 
         <div class="space-y-3">
           <!-- Self slider -->
@@ -70,8 +68,8 @@
               Usted
             </span>
             <span class="flex items-center gap-3">
-              <span class="w-10 text-right font-body text-xs text-sage-500">
-                {t('exercise.scale.low')}
+              <span class="w-16 text-right font-body text-xs text-sage-500">
+                {dimension.low}
               </span>
               <input
                 type="range"
@@ -80,8 +78,8 @@
                 bind:value={selfValues[index]}
                 class="flex-1 accent-sage-600"
               />
-              <span class="w-10 font-body text-xs text-sage-500">
-                {t('exercise.scale.high')}
+              <span class="w-16 font-body text-xs text-sage-500">
+                {dimension.high}
               </span>
               <span class="w-6 text-center font-body text-sm font-semibold text-sage-700">
                 {selfValues[index]}
@@ -95,8 +93,8 @@
               Su hijo(a)
             </span>
             <span class="flex items-center gap-3">
-              <span class="w-10 text-right font-body text-xs text-sage-500">
-                {t('exercise.scale.low')}
+              <span class="w-16 text-right font-body text-xs text-sage-500">
+                {dimension.low}
               </span>
               <input
                 type="range"
@@ -105,8 +103,8 @@
                 bind:value={childValues[index]}
                 class="flex-1 accent-sage-600"
               />
-              <span class="w-10 font-body text-xs text-sage-500">
-                {t('exercise.scale.high')}
+              <span class="w-16 font-body text-xs text-sage-500">
+                {dimension.high}
               </span>
               <span class="w-6 text-center font-body text-sm font-semibold text-sage-700">
                 {childValues[index]}

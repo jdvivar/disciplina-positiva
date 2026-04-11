@@ -13,15 +13,13 @@
   let { id, title, instructions, onSave }: Props = $props();
 
   const dimensions = [
-    'Nivel de actividad',
-    'Regularidad',
-    'Reacción inicial',
-    'Adaptabilidad',
-    'Intensidad',
-    'Estado de ánimo',
-    'Persistencia',
-    'Distracción',
-    'Sensibilidad',
+    { name: 'Nivel de actividad', low: 'Bajo', high: 'Alto', lowDesc: 'Prefiero actividades tranquilas', highDesc: 'Prefiero estar físicamente activo/a' },
+    { name: 'Regularidad', low: 'Bajo', high: 'Alto', lowDesc: 'Me da hambre o me canso a diferentes horas', highDesc: 'Siempre tengo hambre o me canso a la misma hora' },
+    { name: 'Respuesta a las nuevas situaciones', low: 'Rechazo', high: 'Aproximación', lowDesc: 'Me siento incómodo en situaciones nuevas o con gente nueva', highDesc: 'Me gusta conocer nuevos lugares y gente nueva' },
+    { name: 'Adaptabilidad', low: 'Bajo', high: 'Alto', lowDesc: 'Me cuesta adaptarme a nuevas rutinas', highDesc: 'Me adapto rápido a nuevas situaciones' },
+    { name: 'Distractibilidad', low: 'Bajo', high: 'Alto', lowDesc: 'Puedo concentrarme en una cosa por largo tiempo', highDesc: 'Me distraigo fácilmente' },
+    { name: 'Persistencia', low: 'Bajo', high: 'Alto', lowDesc: 'Pierdo interés fácilmente y cambio a otras cosas', highDesc: 'Me concentro en algo hasta terminarlo' },
+    { name: 'Intensidad', low: 'Bajo', high: 'Alto', lowDesc: 'No muestro mis emociones, otra gente no sabe lo que pienso', highDesc: 'Cuando estoy triste, enojado o feliz, los otros se dan cuenta' },
   ];
 
   let values: number[] = $state(dimensions.map(() => 2));
@@ -56,11 +54,11 @@
     {#each dimensions as dimension, index (dimension)}
       <div class="rounded-lg bg-white p-4">
         <p class="mb-2 font-body text-sm font-medium text-sage-700">
-          {dimension}
+          {dimension.name}
         </p>
         <label class="flex items-center gap-3">
-          <span class="w-10 text-right font-body text-xs text-sage-500">
-            {t('exercise.scale.low')}
+          <span class="w-24 text-right font-body text-xs text-sage-500">
+            {dimension.low}
           </span>
           <input
             type="range"
@@ -69,13 +67,17 @@
             bind:value={values[index]}
             class="flex-1 accent-sage-600"
           />
-          <span class="w-10 font-body text-xs text-sage-500">
-            {t('exercise.scale.high')}
+          <span class="w-24 font-body text-xs text-sage-500">
+            {dimension.high}
           </span>
           <span class="w-6 text-center font-body text-sm font-semibold text-sage-700">
             {values[index]}
           </span>
         </label>
+        <div class="flex justify-between mt-1 px-24">
+          <span class="font-body text-[10px] text-sage-400 max-w-[120px]">{dimension.lowDesc}</span>
+          <span class="font-body text-[10px] text-sage-400 max-w-[120px] text-right">{dimension.highDesc}</span>
+        </div>
       </div>
     {/each}
   </div>
