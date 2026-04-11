@@ -1,7 +1,7 @@
 export interface ExerciseData {
   id: string;
   title: string;
-  type: 'open-text' | 'guided-list' | 'self-assessment' | 'comparison';
+  type: 'open-text' | 'guided-list' | 'self-assessment' | 'comparison' | 'numbered-list';
   instructions: string;
 }
 

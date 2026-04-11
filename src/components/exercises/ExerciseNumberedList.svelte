@@ -1,0 +1,76 @@
+<script lang="ts">
+  import { t } from '../../lib/i18n';
+  import { saveExercise, getExerciseProgress } from '../../lib/progress';
+  import ExerciseBadge from '../ExerciseBadge.svelte';
+
+  interface Props {
+    id: string;
+    title: string;
+    instructions: string;
+    count?: number;
+    onSave?: () => void;
+  }
+
+  let { id, title, instructions, count = 5, onSave }: Props = $props();
+
+  let items = $state<string[]>(Array(count).fill(''));
+  let saved = $state(false);
+  let validationMessage = $state('');
+
+  $effect(() => {
+    const progress = getExerciseProgress(id);
+    if (progress?.answers?.items) {
+      const savedItems = progress.answers.items as string[];
+      items = Array(count).fill('').map((_, i) => savedItems[i] ?? '');
+      saved = progress.completed;
+    }
+  });
+
+  function handleSave() {
+    if (items.every(item => !item.trim())) {
+      validationMessage = 'Escribe al menos una respuesta antes de guardar';
+      return;
+    }
+    validationMessage = '';
+    saveExercise(id, { items });
+    saved = true;
+    onSave?.();
+  }
+</script>
+
+<div class="my-6 rounded-2xl bg-sage-50 p-6 border-3 border-sage-600">
+  <div class="mb-3 flex items-center gap-2">
+    <ExerciseBadge completed={saved} />
+  </div>
+
+  <h3 class="mb-2 font-heading text-lg font-semibold text-sage-700">{title}</h3>
+  <p class="mb-4 font-body text-sm leading-relaxed text-sage-500">{instructions}</p>
+
+  <div class="space-y-3">
+    {#each items as item, i}
+      <div class="flex items-center gap-3">
+        <span class="font-body text-sm font-medium text-sage-500 w-5 text-right flex-shrink-0">{i + 1}.</span>
+        <input
+          type="text"
+          bind:value={items[i]}
+          oninput={() => validationMessage = ''}
+          placeholder=""
+          class="flex-1 rounded-lg border border-sage-200 bg-white px-3 py-2 font-body text-sm text-text
+            placeholder:text-muted focus:border-sage-600 focus:ring-1 focus:ring-sage-600 focus:outline-none"
+        />
+      </div>
+    {/each}
+  </div>
+
+  <div class="mt-4 flex items-center gap-3">
+    <button
+      onclick={handleSave}
+      class="rounded-lg bg-sage-600 px-4 py-2 font-body text-sm font-medium text-white hover:bg-sage-700"
+    >
+      {saved ? t('exercise.saved') : t('exercise.save')}
+    </button>
+    {#if validationMessage}
+      <span class="font-body text-sm text-sage-500">{validationMessage}</span>
+    {/if}
+  </div>
+</div>
