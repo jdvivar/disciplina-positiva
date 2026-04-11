@@ -79,7 +79,7 @@ const exercisesJson = JSON.stringify(currentMeta.exercises);
 
 <BaseLayout title={currentEntry.data.title}>
   <AppShell chapters={chaptersMeta} currentSlug={slug!} client:load>
-    <div class="chapter-page" data-exercises={exercisesJson}>
+    <div class="chapter-page" data-exercises={exercisesJson} data-chapter-number={currentMeta.chapter ?? 0}>
       <article class="prose prose-sage max-w-none">
         <Content />
       </article>
@@ -105,9 +105,12 @@ const exercisesJson = JSON.stringify(currentMeta.exercises);
     const chapterPage = document.querySelector('.chapter-page');
     if (!chapterPage) return;
 
+    const chapterNumber = chapterPage.getAttribute('data-chapter-number') ?? '0';
     const exerciseDivs = chapterPage.querySelectorAll<HTMLDivElement>('[data-exercise-id]');
+    let exerciseIndex = 0;
 
     exerciseDivs.forEach((div) => {
+      exerciseIndex++;
       const id = div.getAttribute('data-exercise-id') ?? '';
       const type = (div.getAttribute('data-exercise-type') ?? 'open-text') as ExerciseData['type'];
       const title = div.getAttribute('data-exercise-title') ?? '';
@@ -126,7 +129,8 @@ const exercisesJson = JSON.stringify(currentMeta.exercises);
         if (rq) radioQuestions = JSON.parse(rq);
       } catch {}
 
-      const exercise: ExerciseData = { id, type, title, instructions, listPrompt, listCount, questions, radioQuestions };
+      const number = chapterNumber !== '0' ? `${chapterNumber}-${exerciseIndex}` : undefined;
+      const exercise: ExerciseData = { id, type, title, instructions, number, listPrompt, listCount, questions, radioQuestions };
 
       // Create a wrapper element for the Svelte component
       const wrapper = document.createElement('div');

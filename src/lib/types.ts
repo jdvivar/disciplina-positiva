@@ -3,6 +3,7 @@ export interface ExerciseData {
   title: string;
   type: 'open-text' | 'guided-list' | 'self-assessment' | 'comparison' | 'numbered-list' | 'multi-section' | 'radio';
   instructions: string;
+  number?: string;
   listPrompt?: string;
   listCount?: number;
   questions?: string[];

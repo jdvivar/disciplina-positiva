@@ -39,7 +39,7 @@
       return;
     }
     validationMessage = '';
-    saveExercise(id, { selections, notes });
+    saveExercise(id, { selections: selections.map(s => s ?? -1), notes });
     saved = true;
     onSave?.();
   }
