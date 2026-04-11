@@ -45,7 +45,7 @@
 
 <!-- Journal reminder callout — not printed -->
 <div class="print-hidden max-w-[620px] mx-auto mb-6">
-  <div class="callout" data-callout style="background: #e8f0ec; border-radius: 16px; padding: 28px 32px;">
+  <div class="callout" data-callout>
     <p style="font-family: 'Fraunces', serif; font-size: 16px; color: #1b4332; line-height: 1.6;">
       Has completado la guía. No olvides guardar tu diario de crianza — puedes imprimirlo o volver a él cuando quieras.
     </p>
@@ -239,6 +239,53 @@
                     </div>
                   {/if}
                 {/each}
+              </div>
+
+            {:else if exercise.type === 'numbered-list'}
+              {@const items = (exerciseProgress.answers.items ?? []) as string[]}
+              {#if items.some(item => item.trim())}
+                <ol class="list-decimal pl-5 space-y-0.5">
+                  {#each items as item, i}
+                    {#if item.trim()}
+                      <li class="font-body text-sm text-text">{item}</li>
+                    {/if}
+                  {/each}
+                </ol>
+              {/if}
+
+            {:else if exercise.type === 'multi-section'}
+              {@const items = (exerciseProgress.answers.items ?? []) as string[]}
+              {@const answers = (exerciseProgress.answers.answers ?? []) as string[]}
+              {#if items.some(item => item.trim())}
+                <ol class="list-decimal pl-5 space-y-0.5 mb-2">
+                  {#each items as item}
+                    {#if item.trim()}
+                      <li class="font-body text-sm text-text">{item}</li>
+                    {/if}
+                  {/each}
+                </ol>
+              {/if}
+              {#each answers as answer, i}
+                {#if answer.trim()}
+                  <p class="font-body text-sm text-text whitespace-pre-wrap">{answer}</p>
+                {/if}
+              {/each}
+
+            {:else if exercise.type === 'radio'}
+              {@const selections = (exerciseProgress.answers.selections ?? []) as number[]}
+              {@const rqs = exercise.radioQuestions ?? []}
+              {#each rqs as rq, qi}
+                {#if selections[qi] !== undefined && selections[qi] >= 0}
+                  <p class="font-body text-sm text-text">
+                    <span class="text-sage-500">{rq.question}</span> {rq.options[selections[qi]]}
+                  </p>
+                {/if}
+              {/each}
+            {/if}
+
+            {#if exerciseProgress.answers.notes && (exerciseProgress.answers.notes as string).trim()}
+              <div class="mt-2 pl-3 border-l-2 border-sage-200">
+                <p class="font-body text-xs text-sage-500 italic">{exerciseProgress.answers.notes}</p>
               </div>
             {/if}
 

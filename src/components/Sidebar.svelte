@@ -63,7 +63,7 @@
 
 </script>
 
-<nav class="flex flex-col h-full bg-sage-50 border-r border-sage-100">
+<nav class="flex flex-col h-full bg-sage-50 border-r border-[var(--color-border-layout)]">
   <!-- Logo / Title -->
   <div class="pl-9 pr-5 pt-6 pb-4 flex items-center gap-3">
     <a href="/" data-astro-reload class="flex items-center gap-3 font-heading text-lg font-semibold text-sage-700 leading-tight hover:text-sage-900 transition-colors flex-1">
@@ -109,7 +109,7 @@
   </div>
 
   <!-- Journal & About links -->
-  <div class="px-3 pb-2 space-y-1.5">
+  <div class="px-3 pb-2 space-y-1.5 border-t border-[var(--color-border-layout)] pt-2">
     <a
       href="/{lang}/diario"
       class="block px-6 py-5 rounded-lg font-heading text-sm text-sage-500 hover:bg-sage-100 transition-colors no-underline"
@@ -125,7 +125,7 @@
   </div>
 
   <!-- Overall progress — matches sticky bottom nav height -->
-  <div class="px-9 border-t border-sage-100" style="height: var(--nav-height); display: flex; align-items: center;">
+  <div class="px-9 border-t border-[var(--color-border-layout)]" style="height: var(--nav-height); display: flex; align-items: center;">
     <div class="w-full">
       <ProgressBar
         completed={totalCompleted}

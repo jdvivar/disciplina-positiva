@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import type { ChapterMeta, ExerciseData } from '../../lib/types';
+import type { ChapterMeta } from '../../lib/types';
+import { extractExercisesFromRaw } from '../../lib/extract-exercises';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AppShell from '../../components/AppShell.svelte';
 import Journal from '../../components/Journal.svelte';
@@ -16,27 +17,7 @@ const allChapters = await getCollection('es');
 // Sort chapters by order
 const sorted = [...allChapters].sort((a, b) => a.data.order - b.data.order);
 
-// Extract exercises from raw MDX source (same approach as [...slug].astro)
-function extractExercisesFromRaw(rawBody: string): ExerciseData[] {
-  const exercises: ExerciseData[] = [];
-  const pattern =
-    /<div\s+data-exercise-id="([^"]*?)"\s+data-exercise-type="([^"]*?)"\s+data-exercise-title="([^"]*?)"[^>]*>([\s\S]*?)<\/div>/g;
-  let match: RegExpExecArray | null;
-  while ((match = pattern.exec(rawBody)) !== null) {
-    const rawInstructions = match[4];
-    const instructions = rawInstructions
-      .replace(/<[^>]+>/g, '\n')
-      .replace(/\n{2,}/g, '\n')
-      .trim();
-    exercises.push({
-      id: match[1],
-      type: match[2] as ExerciseData['type'],
-      title: match[3],
-      instructions,
-    });
-  }
-  return exercises;
-}
+// Extract exercises from raw MDX source (shared with [...slug].astro)
 
 // Build ChapterMeta[] for all chapters
 const chaptersMeta: ChapterMeta[] = sorted.map((ch) => ({

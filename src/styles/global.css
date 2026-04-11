@@ -6,8 +6,9 @@
 
 :root {
   --nav-height: 120px;
-  --color-exercise-done: #f7faf8;
-  --color-content-bg: #f7faf8;
+  --color-exercise-done: var(--color-surface-light);
+  --color-content-bg: var(--color-surface-light);
+  --color-border-layout: var(--color-sage-100);
 }
 
 @theme {
@@ -21,6 +22,7 @@
   --color-sage-900: #1b4332;
 
   --color-surface: #e8f0ec;
+  --color-surface-light: #f7faf8;
   --color-text: #2d3b35;
   --color-muted: #9ca3af;
 
@@ -138,7 +140,7 @@ main h3:first-child {
 /* Callout — highlighted block without quote mark */
 .callout,
 [data-callout] {
-  background: #e8f0ec;
+  background: var(--color-surface);
   border-radius: 16px;
   padding: 28px 32px;
   margin: 24px 0;
@@ -255,7 +257,7 @@ main h3:first-child {
 
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
-  background: #e8f0ec;
+  background: var(--color-surface);
   border-radius: 16px;
   padding: 28px 32px 28px 56px;
   margin: 24px 0;
@@ -310,11 +312,10 @@ blockquote cite {
   --color-sage-900: #d8f3dc;
 
   --color-surface: #141f1a;
+  --color-surface-light: #1a2e24;
   --color-text: #b0c4b8;
   --color-muted: #6b9b8a;
-
-  --color-exercise-done: #1a2e24;
-  --color-content-bg: #1a2e24;
+  --color-border-layout: var(--color-sage-100);
   color-scheme: dark;
 }
 
@@ -329,33 +330,20 @@ blockquote cite {
   --color-sage-900: #1b4332;
 }
 
-/* Dark: hardcoded backgrounds that don't use CSS vars */
-.dark blockquote,
-.dark .callout,
-.dark [data-callout] {
-  background: #2d4a3a;
-}
-
 /* Dark: white backgrounds inside exercises */
 .dark .exercise-card .bg-white {
-  background-color: #1a2e24;
+  background-color: var(--color-surface-light);
 }
 
 /* Dark: bottom nav buttons */
 .dark nav a.bg-sage-50 {
-  background-color: #2d4a3a;
+  background-color: var(--color-sage-100);
 }
 .dark nav a.bg-sage-600 {
-  background-color: #2d6a4f;
+  background-color: var(--color-sage-700);
 }
 .dark nav a.bg-sage-600 .text-sage-200 {
-  color: #d8f3dc;
-}
-
-/* Dark: content area + bottom nav (hardcoded #f7faf8 inline styles) */
-.dark main[style],
-.dark nav[style] {
-  background-color: #1a2e24 !important;
+  color: var(--color-sage-900);
 }
 
 /* Dark: form inputs */
@@ -363,16 +351,16 @@ blockquote cite {
 .dark input[type="range"],
 .dark textarea,
 .dark select {
-  background-color: #1a2e24;
-  border-color: #3a5e4d;
-  color: #d8f3dc;
+  background-color: var(--color-surface-light);
+  border-color: var(--color-sage-200);
+  color: var(--color-sage-900);
 }
 
 /* Dark: prose typography */
 .dark .prose {
-  --tw-prose-body: #b0c4b8;
-  --tw-prose-headings: #8ab5a5;
-  --tw-prose-bold: #d8f3dc;
-  --tw-prose-counters: #6b9b8a;
-  --tw-prose-bullets: #6b9b8a;
+  --tw-prose-body: var(--color-text);
+  --tw-prose-headings: var(--color-sage-700);
+  --tw-prose-bold: var(--color-sage-900);
+  --tw-prose-counters: var(--color-sage-500);
+  --tw-prose-bullets: var(--color-sage-500);
 }

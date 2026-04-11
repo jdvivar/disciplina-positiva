@@ -48,7 +48,7 @@
 </div>
 
 <!-- Mobile top bar -->
-<div class="lg:hidden fixed top-0 left-0 right-0 z-30 bg-sage-50 border-b border-sage-100">
+<div class="lg:hidden fixed top-0 left-0 right-0 z-30 bg-sage-50 border-b border-[var(--color-border-layout)]">
   <div class="flex items-center gap-3 px-4 h-12">
     <!-- Hamburger button -->
     <button
@@ -97,7 +97,7 @@
 {/if}
 
 <!-- Main content -->
-<main class="lg:ml-[320px] min-h-screen" style="background-color: #f7faf8;">
+<main class="lg:ml-[320px] min-h-screen bg-surface-light">
   <!-- Spacer for mobile top bar -->
   <div class="lg:hidden h-12"></div>
 

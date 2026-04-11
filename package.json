@@ -28,5 +28,8 @@
     "tailwindcss": "^4.2.2",
     "tinacms": "^3.7.2",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
   }
 }
