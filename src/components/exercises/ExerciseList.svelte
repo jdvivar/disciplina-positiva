@@ -43,7 +43,14 @@
     }
   }
 
+  let validationMessage = $state('');
+
   function handleSave() {
+    if (items.length === 0) {
+      validationMessage = 'Agrega al menos un elemento antes de guardar';
+      return;
+    }
+    validationMessage = '';
     saveExercise(id, { items });
     saved = true;
     onSave?.();
@@ -69,9 +76,7 @@
     />
     <button
       onclick={addItem}
-      disabled={!newItem.trim()}
-      class="rounded-lg bg-sage-600 px-4 py-2 font-body text-sm font-medium text-white
-        hover:bg-sage-700 disabled:cursor-not-allowed disabled:opacity-50"
+      class="rounded-lg bg-sage-600 px-4 py-2 font-body text-sm font-medium text-white hover:bg-sage-700"
     >
       {t('exercise.list.add')}
     </button>
@@ -93,12 +98,15 @@
     </ul>
   {/if}
 
-  <button
-    onclick={handleSave}
-    disabled={items.length === 0}
-    class="rounded-lg bg-sage-600 px-4 py-2 font-body text-sm font-medium text-white
-      hover:bg-sage-700 disabled:cursor-not-allowed disabled:opacity-50"
-  >
-    {saved ? t('exercise.saved') : t('exercise.save')}
-  </button>
+  <div class="flex items-center gap-3">
+    <button
+      onclick={handleSave}
+      class="rounded-lg bg-sage-600 px-4 py-2 font-body text-sm font-medium text-white hover:bg-sage-700"
+    >
+      {saved ? t('exercise.saved') : t('exercise.save')}
+    </button>
+    {#if validationMessage}
+      <span class="font-body text-sm text-red-400">{validationMessage}</span>
+    {/if}
+  </div>
 </div>

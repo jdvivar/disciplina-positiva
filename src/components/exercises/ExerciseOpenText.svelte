@@ -23,7 +23,14 @@
     }
   });
 
+  let validationMessage = $state('');
+
   function handleSave() {
+    if (!text.trim()) {
+      validationMessage = 'Escribe algo antes de guardar';
+      return;
+    }
+    validationMessage = '';
     saveExercise(id, { text });
     saved = true;
     onSave?.();
@@ -42,6 +49,7 @@
     bind:value={text}
     placeholder={t('exercise.placeholder.text')}
     rows="5"
+    oninput={() => validationMessage = ''}
     class="w-full resize-y rounded-lg border border-sage-200 bg-white p-3 font-body text-sm text-text
       placeholder:text-muted focus:border-sage-600 focus:ring-1 focus:ring-sage-600 focus:outline-none"
   ></textarea>
@@ -49,11 +57,12 @@
   <div class="mt-4 flex items-center gap-3">
     <button
       onclick={handleSave}
-      disabled={!text.trim()}
-      class="rounded-lg bg-sage-600 px-4 py-2 font-body text-sm font-medium text-white
-        hover:bg-sage-700 disabled:cursor-not-allowed disabled:opacity-50"
+      class="rounded-lg bg-sage-600 px-4 py-2 font-body text-sm font-medium text-white hover:bg-sage-700"
     >
       {saved ? t('exercise.saved') : t('exercise.save')}
     </button>
+    {#if validationMessage}
+      <span class="font-body text-sm text-red-400">{validationMessage}</span>
+    {/if}
   </div>
 </div>
