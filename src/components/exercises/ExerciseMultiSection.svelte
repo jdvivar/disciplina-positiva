@@ -57,6 +57,7 @@
     <p class="mb-4 font-body text-sm leading-relaxed text-sage-500">{listPrompt}</p>
   {/if}
 
+  {#if listCount > 0}
   <div class="space-y-3 mb-6">
     {#each items as item, i}
       <div class="flex items-center gap-3">
@@ -71,6 +72,7 @@
       </div>
     {/each}
   </div>
+  {/if}
 
   {#if questions.length > 0}
     <div class="space-y-5">

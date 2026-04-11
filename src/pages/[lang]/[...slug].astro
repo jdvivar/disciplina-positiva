@@ -113,6 +113,8 @@ const exercisesJson = JSON.stringify(currentMeta.exercises);
       const title = div.getAttribute('data-exercise-title') ?? '';
       const instructions = div.textContent?.trim() ?? '';
       const listPrompt = div.getAttribute('data-exercise-list-prompt') ?? undefined;
+      const listCountAttr = div.getAttribute('data-exercise-list-count');
+      const listCount = listCountAttr !== null ? parseInt(listCountAttr, 10) : undefined;
       let questions: string[] | undefined;
       try {
         const q = div.getAttribute('data-exercise-questions');
@@ -124,7 +126,7 @@ const exercisesJson = JSON.stringify(currentMeta.exercises);
         if (rq) radioQuestions = JSON.parse(rq);
       } catch {}
 
-      const exercise: ExerciseData = { id, type, title, instructions, listPrompt, questions, radioQuestions };
+      const exercise: ExerciseData = { id, type, title, instructions, listPrompt, listCount, questions, radioQuestions };
 
       // Create a wrapper element for the Svelte component
       const wrapper = document.createElement('div');

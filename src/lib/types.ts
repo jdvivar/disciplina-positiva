@@ -4,6 +4,7 @@ export interface ExerciseData {
   type: 'open-text' | 'guided-list' | 'self-assessment' | 'comparison' | 'numbered-list' | 'multi-section' | 'radio';
   instructions: string;
   listPrompt?: string;
+  listCount?: number;
   questions?: string[];
   radioQuestions?: { question: string; options: string[] }[];
 }

@@ -27,7 +27,7 @@
 {:else if exercise.type === 'numbered-list'}
   <ExerciseNumberedList id={exercise.id} title={exercise.title} instructions={exercise.instructions} {onSave} />
 {:else if exercise.type === 'multi-section'}
-  <ExerciseMultiSection id={exercise.id} title={exercise.title} instructions={exercise.instructions} listPrompt={exercise.listPrompt} questions={exercise.questions} {onSave} />
+  <ExerciseMultiSection id={exercise.id} title={exercise.title} instructions={exercise.instructions} listPrompt={exercise.listPrompt} listCount={exercise.listCount} questions={exercise.questions} {onSave} />
 {:else if exercise.type === 'radio'}
   <ExerciseRadio id={exercise.id} title={exercise.title} instructions={exercise.instructions} radioQuestions={exercise.radioQuestions} {onSave} />
 {/if}
