@@ -190,6 +190,17 @@ main h3:first-child {
   width: 100%;
 }
 
+.pyramid-empty {
+  background: transparent;
+  border: 1.5px solid var(--color-sage-200);
+  color: transparent;
+}
+
+.pyramid-focus {
+  margin: 32px auto;
+  max-width: 360px;
+}
+
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
   background: #e8f0ec;
