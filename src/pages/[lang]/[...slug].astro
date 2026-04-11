@@ -97,9 +97,11 @@ const exercisesJson = JSON.stringify(currentMeta.exercises);
 <script>
   // Client-side: Replace exercise placeholder divs with interactive Svelte components
   // This runs after Astro has rendered the MDX content server-side
-  import { mount } from 'svelte';
+  import { mount, type Component } from 'svelte';
   import ExerciseRenderer from '../../components/ExerciseRenderer.svelte';
   import type { ExerciseData } from '../../lib/types';
+
+  const ExerciseRendererComponent = ExerciseRenderer as unknown as Component<{ exercise: ExerciseData; onSave?: () => void }>;
 
   function hydrateExercises() {
     const chapterPage = document.querySelector('.chapter-page');
@@ -137,7 +139,7 @@ const exercisesJson = JSON.stringify(currentMeta.exercises);
       wrapper.className = 'exercise-slot';
       div.replaceWith(wrapper);
 
-      mount(ExerciseRenderer, {
+      mount(ExerciseRendererComponent, {
         target: wrapper,
         props: {
           exercise,
