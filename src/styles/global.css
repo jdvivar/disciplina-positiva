@@ -103,13 +103,12 @@ blockquote p::after {
   content: none !important;
 }
 
-/* Attribution: only style last-child differently when there are multiple paragraphs */
-blockquote p:not(:only-child):last-child {
+/* Quote attribution — use <cite> in markdown for sources */
+blockquote cite {
+  display: block;
   font-family: 'Inter', sans-serif;
   font-size: 12px;
+  font-style: normal;
   color: var(--color-sage-500);
-}
-
-blockquote p:not(:only-child):last-child::before {
-  content: '— ' !important;
+  margin-top: 8px;
 }
