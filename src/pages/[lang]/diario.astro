@@ -4,6 +4,7 @@ import type { ChapterMeta, ExerciseData } from '../../lib/types';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AppShell from '../../components/AppShell.svelte';
 import Journal from '../../components/Journal.svelte';
+import ChapterContent from '../../components/ChapterContent.svelte';
 import '../../styles/print.css';
 
 export async function getStaticPaths() {
@@ -50,5 +51,11 @@ const chaptersMeta: ChapterMeta[] = sorted.map((ch) => ({
 <BaseLayout title="Mi Diario de Crianza">
   <AppShell chapters={chaptersMeta} currentSlug="diario" client:load>
     <Journal chapters={chaptersMeta} client:load />
+    <ChapterContent
+      chapter={{ title: 'Mi Diario de Crianza', slug: 'diario', order: 998, exercises: [] }}
+      prevChapter={chaptersMeta.find(c => c.slug === 'conclusion') ?? null}
+      nextChapter={chaptersMeta.find(c => c.slug === 'about') ?? null}
+      client:load
+    />
   </AppShell>
 </BaseLayout>

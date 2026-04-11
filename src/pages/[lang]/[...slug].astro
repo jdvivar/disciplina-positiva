@@ -59,10 +59,16 @@ const chaptersMeta: ChapterMeta[] = sorted.map((ch) => ({
 const currentIdx = sorted.findIndex((ch) => ch.id === slug);
 const currentMeta = chaptersMeta[currentIdx];
 const prevMeta = currentIdx > 0 ? chaptersMeta[currentIdx - 1] : null;
-const isLastChapter = currentIdx === chaptersMeta.length - 1;
-const nextMeta = isLastChapter
-  ? { title: 'Mi Diario de Crianza', slug: 'diario', order: 999, exercises: [] } as typeof chaptersMeta[0]
-  : currentIdx < chaptersMeta.length - 1 ? chaptersMeta[currentIdx + 1] : null;
+
+// Navigation flow: after the last content chapter (about), no next.
+// conclusion → diario, diario doesn't use this page, about → null
+const isConclusion = currentMeta.slug === 'conclusion';
+const isAbout = currentMeta.slug === 'about';
+const nextMeta = isConclusion
+  ? { title: 'Mi Diario de Crianza', slug: 'diario', order: 998, exercises: [] } as typeof chaptersMeta[0]
+  : isAbout
+    ? null
+    : currentIdx < chaptersMeta.length - 1 ? chaptersMeta[currentIdx + 1] : null;
 
 // Render the current chapter's MDX (Astro 6: render is a standalone function)
 const { Content } = await render(currentEntry);
