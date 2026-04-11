@@ -106,7 +106,7 @@
       {saved ? t('exercise.saved') : t('exercise.save')}
     </button>
     {#if validationMessage}
-      <span class="font-body text-sm text-red-400">{validationMessage}</span>
+      <span class="font-body text-sm text-sage-500">{validationMessage}</span>
     {/if}
   </div>
 </div>
