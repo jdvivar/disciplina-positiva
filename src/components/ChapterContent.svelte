@@ -18,7 +18,7 @@
 </script>
 
 <!-- Prev/Next navigation — fixed bottom bar -->
-<nav class="fixed bottom-0 left-0 lg:left-[320px] right-0 z-20 border-t border-sage-100 px-4" style="background-color: #f7faf8; min-height: 80px; display: flex; align-items: center;">
+<nav class="fixed bottom-0 left-0 lg:left-[320px] right-0 z-20 border-t border-sage-100 px-4" style="background-color: #f7faf8; height: var(--nav-height); display: flex; align-items: center;">
   <div class="max-w-[65ch] mx-auto flex gap-3 w-full py-3">
     {#if prevChapter}
       <a

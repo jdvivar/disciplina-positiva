@@ -9,7 +9,7 @@
 </script>
 
 {#if label}
-  <div class="font-body text-xs text-sage-500 mb-1">{label}</div>
+  <div class="font-body text-s text-sage-500 mb-1">{label}</div>
 {/if}
 <div class="h-1.5 rounded-full bg-sage-100 overflow-hidden">
   <div

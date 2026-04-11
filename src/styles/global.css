@@ -2,6 +2,10 @@
 
 @plugin '@tailwindcss/typography';
 
+:root {
+  --nav-height: 120px;
+}
+
 @theme {
   /* Sage Garden color palette */
   --color-sage-50: #f0f7f4;
