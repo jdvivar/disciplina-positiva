@@ -17,17 +17,17 @@
 </script>
 
 {#if exercise.type === 'open-text'}
-  <ExerciseOpenText id={exercise.id} title={exercise.title} instructions={exercise.instructions} {onSave} />
+  <ExerciseOpenText id={exercise.id} title={exercise.title} instructions={exercise.instructions} number={exercise.number} {onSave} />
 {:else if exercise.type === 'guided-list'}
-  <ExerciseList id={exercise.id} title={exercise.title} instructions={exercise.instructions} {onSave} />
+  <ExerciseList id={exercise.id} title={exercise.title} instructions={exercise.instructions} number={exercise.number} {onSave} />
 {:else if exercise.type === 'self-assessment'}
-  <ExerciseScale id={exercise.id} title={exercise.title} instructions={exercise.instructions} {onSave} />
+  <ExerciseScale id={exercise.id} title={exercise.title} instructions={exercise.instructions} number={exercise.number} {onSave} />
 {:else if exercise.type === 'comparison'}
-  <ExerciseComparison id={exercise.id} title={exercise.title} instructions={exercise.instructions} {onSave} />
+  <ExerciseComparison id={exercise.id} title={exercise.title} instructions={exercise.instructions} number={exercise.number} {onSave} />
 {:else if exercise.type === 'numbered-list'}
-  <ExerciseNumberedList id={exercise.id} title={exercise.title} instructions={exercise.instructions} {onSave} />
+  <ExerciseNumberedList id={exercise.id} title={exercise.title} instructions={exercise.instructions} number={exercise.number} {onSave} />
 {:else if exercise.type === 'multi-section'}
-  <ExerciseMultiSection id={exercise.id} title={exercise.title} instructions={exercise.instructions} listPrompt={exercise.listPrompt} listCount={exercise.listCount} questions={exercise.questions} {onSave} />
+  <ExerciseMultiSection id={exercise.id} title={exercise.title} instructions={exercise.instructions} listPrompt={exercise.listPrompt} listCount={exercise.listCount} questions={exercise.questions} number={exercise.number} {onSave} />
 {:else if exercise.type === 'radio'}
-  <ExerciseRadio id={exercise.id} title={exercise.title} instructions={exercise.instructions} radioQuestions={exercise.radioQuestions} {onSave} />
+  <ExerciseRadio id={exercise.id} title={exercise.title} instructions={exercise.instructions} radioQuestions={exercise.radioQuestions} number={exercise.number} {onSave} />
 {/if}

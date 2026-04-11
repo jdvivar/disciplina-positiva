@@ -7,10 +7,11 @@
     id: string;
     title: string;
     instructions: string;
+    number?: string;
     onSave?: () => void;
   }
 
-  let { id, title, instructions, onSave }: Props = $props();
+  let { id, title, instructions, number, onSave }: Props = $props();
 
   const dimensions = [
     { name: 'Nivel de actividad', low: 'Bajo', high: 'Alto', lowDesc: 'Prefiero actividades tranquilas', highDesc: 'Prefiero estar físicamente activo/a' },
@@ -44,7 +45,7 @@
 
 <div class="my-6 rounded-2xl bg-sage-50 p-6 border-3 border-sage-600">
   <div class="mb-3 flex items-center gap-2">
-    <ExerciseBadge completed={saved} />
+    <ExerciseBadge completed={saved} number={number} />
   </div>
 
   <h3 class="mb-2 font-heading text-lg font-semibold text-sage-700">{title}</h3>
