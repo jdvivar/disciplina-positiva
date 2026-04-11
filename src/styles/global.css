@@ -172,11 +172,13 @@ main h3:first-child {
 
 .pyramid-top {
   background: #b8860b;
+  --level-color: #b8860b;
   width: 50%;
 }
 
 .pyramid-mid {
   background: #c17856;
+  --level-color: #c17856;
   width: 80%;
 }
 
@@ -186,11 +188,13 @@ main h3:first-child {
 
 .pyramid-base {
   background: #40916c;
+  --level-color: #40916c;
   flex: 1;
 }
 
 .pyramid-foundation {
   background: #1b4332;
+  --level-color: #1b4332;
   width: 100%;
 }
 
@@ -219,7 +223,7 @@ main h3:first-child {
   font-size: 10px;
   font-weight: 600;
   color: white;
-  background: var(--color-sage-600);
+  background: var(--level-color, var(--color-sage-600));
   padding: 3px 8px;
   border-radius: 6px;
   white-space: nowrap;
