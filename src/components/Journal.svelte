@@ -10,15 +10,13 @@
   let { chapters }: Props = $props();
 
   const dimensions = [
-    'Nivel de actividad',
-    'Regularidad',
-    'Reacción inicial',
-    'Adaptabilidad',
-    'Intensidad',
-    'Estado de ánimo',
-    'Persistencia',
-    'Distracción',
-    'Sensibilidad',
+    { name: 'Nivel de actividad', low: 'Bajo', high: 'Alto' },
+    { name: 'Regularidad', low: 'Bajo', high: 'Alto' },
+    { name: 'Respuesta a nuevas situaciones', low: 'Rechazo', high: 'Aproximación' },
+    { name: 'Adaptabilidad', low: 'Bajo', high: 'Alto' },
+    { name: 'Distractibilidad', low: 'Bajo', high: 'Alto' },
+    { name: 'Persistencia', low: 'Bajo', high: 'Alto' },
+    { name: 'Intensidad', low: 'Bajo', high: 'Alto' },
   ];
 
   let chaptersWithExercises = $derived(chapters.filter((ch) => ch.exercises.length > 0));
@@ -93,13 +91,89 @@
 
         <div class="print-exercise mb-7">
           <h3 class="font-heading text-sm font-semibold text-sage-700 mb-1">
-            {exercise.title}
+            <a href="/es/{chapter.slug}#{exercise.id}" class="print-hidden">{exercise.title}</a>
+            <span class="hidden print:inline">{exercise.title}</span>
           </h3>
           <p class="font-body text-sm text-sage-500 mb-2">
             {exercise.instructions}
           </p>
 
-          {#if answered}
+          {#if exercise.type === 'temperament-comparison'}
+            {@const childProgress2 = progress['temperament-child'] ?? null}
+            {@const selfProgress2 = progress['temperament-self'] ?? null}
+            {@const childVals2 = (childProgress2?.answers?.values ?? []) as number[]}
+            {@const selfVals2 = (selfProgress2?.answers?.values ?? []) as number[]}
+            {#if childVals2.length > 0 && selfVals2.length > 0}
+              <div class="mb-2 flex gap-4 font-body text-xs">
+                <span class="flex items-center gap-1"><svg class="w-3 h-4" viewBox="0 0 12 16"><path d="M5 2 Q7 4, 6 8 Q5 12, 7 14" stroke="#2d6a4f" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg> Usted</span>
+                <span class="flex items-center gap-1"><svg class="w-3 h-4" viewBox="0 0 12 16"><path d="M7 2 Q5 5, 6 8 Q7 11, 5 14" stroke="#c17856" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg> Su hijo(a)</span>
+              </div>
+              <div class="space-y-3 mb-4">
+                {#each dimensions as dim, i}
+                  {#if selfVals2[i] !== undefined && childVals2[i] !== undefined}
+                    <div>
+                      <p class="font-body text-xs font-medium text-sage-700 mb-1">{dim.name}</p>
+                      <div class="flex items-center gap-2">
+                        <span class="font-body text-xs text-sage-500 w-20 text-right flex-shrink-0">{dim.low}</span>
+                        <div class="relative flex-1 h-4">
+                          <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 200 16">
+                            <path d="M4 8 Q50 7, 100 9 Q150 7, 196 8" stroke="#b7e4c7" stroke-width="1" fill="none"/>
+                          </svg>
+                          <svg class="absolute top-0 h-full w-3 -translate-x-1/2" style="left: {selfVals2[i]}%" viewBox="0 0 12 16">
+                            <path d="M5 2 Q7 4, 6 8 Q5 12, 7 14" stroke="#2d6a4f" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                          </svg>
+                          <svg class="absolute top-0 h-full w-3 -translate-x-1/2" style="left: {childVals2[i]}%" viewBox="0 0 12 16">
+                            <path d="M7 2 Q5 5, 6 8 Q7 11, 5 14" stroke="#c17856" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                          </svg>
+                        </div>
+                        <span class="font-body text-xs text-sage-500 w-20 flex-shrink-0">{dim.high}</span>
+                      </div>
+                    </div>
+                  {/if}
+                {/each}
+              </div>
+            {/if}
+            {#if answered}
+              {@const diffs = (exerciseProgress.answers.differences ?? []) as string[]}
+              {@const sims = (exerciseProgress.answers.similarities ?? []) as string[]}
+              {#if diffs.some(d => d.trim())}
+                <p class="font-body text-sm font-medium text-sage-700 mt-2 mb-1">Diferencias entre nuestros temperamentos</p>
+                {#each Array(5) as _, i}
+                  {#if diffs[i * 2]?.trim() || diffs[i * 2 + 1]?.trim()}
+                    <div class="mb-2">
+                      {#if diffs[i * 2]?.trim()}
+                        <p class="font-body text-sm text-text"><span class="text-sage-500">Nos diferenciamos en:</span> {diffs[i * 2]}</p>
+                      {/if}
+                      {#if diffs[i * 2 + 1]?.trim()}
+                        <p class="font-body text-sm text-text"><span class="text-sage-500">Podría producir conflictos cuando:</span> {diffs[i * 2 + 1]}</p>
+                      {/if}
+                    </div>
+                  {/if}
+                {/each}
+              {/if}
+              {#if sims.some(s => s.trim())}
+                <p class="font-body text-sm font-medium text-sage-700 mt-3 mb-1">Similitudes entre nuestros temperamentos</p>
+                {#each Array(6) as _, i}
+                  {#if sims[i * 2]?.trim() || sims[i * 2 + 1]?.trim()}
+                    <div class="mb-2">
+                      {#if sims[i * 2]?.trim()}
+                        <p class="font-body text-sm text-text"><span class="text-sage-500">Coincidimos en:</span> {sims[i * 2]}</p>
+                      {/if}
+                      {#if sims[i * 2 + 1]?.trim()}
+                        <p class="font-body text-sm text-text"><span class="text-sage-500">Nos entendemos en:</span> {sims[i * 2 + 1]}</p>
+                      {/if}
+                    </div>
+                  {/if}
+                {/each}
+              {/if}
+              {#if exerciseProgress.savedAt}
+                <p class="mt-1 font-body text-xs text-muted">
+                  {t('journal.saved-on')} {formatSavedDate(exerciseProgress.savedAt)}
+                </p>
+              {/if}
+            {/if}
+
+          {:else if answered}
             {#if exercise.type === 'open-text'}
               <p class="font-body text-sm text-text whitespace-pre-wrap">
                 {exerciseProgress.answers.text ?? ''}
@@ -117,11 +191,24 @@
 
             {:else if exercise.type === 'self-assessment'}
               {@const values = (exerciseProgress.answers.values ?? []) as number[]}
-              <div class="grid max-w-[300px]" style="grid-template-columns: 1fr auto; gap: 1px 16px;">
-                {#each dimensions as dim, i (dim)}
+              <div class="space-y-3">
+                {#each dimensions as dim, i}
                   {#if values[i] !== undefined}
-                    <span class="font-body text-sm text-text">{dim}</span>
-                    <span class="font-body text-sm text-text">{values[i]}/5</span>
+                    <div>
+                      <p class="font-body text-xs font-medium text-sage-700 mb-1">{dim.name}</p>
+                      <div class="flex items-center gap-2">
+                        <span class="font-body text-xs text-sage-500 w-20 text-right flex-shrink-0">{dim.low}</span>
+                        <div class="relative flex-1 h-4">
+                          <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 200 16">
+                            <path d="M4 8 Q50 7, 100 9 Q150 7, 196 8" stroke="#b7e4c7" stroke-width="1" fill="none"/>
+                          </svg>
+                          <svg class="absolute top-0 h-full w-3 -translate-x-1/2" style="left: {values[i]}%" viewBox="0 0 12 16">
+                            <path d="M5 2 Q7 4, 6 8 Q5 12, 7 14" stroke="#2d6a4f" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                          </svg>
+                        </div>
+                        <span class="font-body text-xs text-sage-500 w-20 flex-shrink-0">{dim.high}</span>
+                      </div>
+                    </div>
                   {/if}
                 {/each}
               </div>
@@ -129,12 +216,27 @@
             {:else if exercise.type === 'comparison'}
               {@const selfValues = (exerciseProgress.answers.selfValues ?? []) as number[]}
               {@const childValues = (exerciseProgress.answers.childValues ?? []) as number[]}
-              <div class="space-y-0.5">
-                {#each dimensions as dim, i (dim)}
+              <div class="space-y-3">
+                {#each dimensions as dim, i}
                   {#if selfValues[i] !== undefined && childValues[i] !== undefined}
-                    <p class="font-body text-sm text-text">
-                      {dim} — Usted {selfValues[i]}/5, Hijo(a) {childValues[i]}/5
-                    </p>
+                    <div>
+                      <p class="font-body text-xs font-medium text-sage-700 mb-1">{dim.name}</p>
+                      <div class="flex items-center gap-2">
+                        <span class="font-body text-xs text-sage-500 w-20 text-right flex-shrink-0">{dim.low}</span>
+                        <div class="relative flex-1 h-4">
+                          <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 200 16">
+                            <path d="M4 8 Q50 7, 100 9 Q150 7, 196 8" stroke="#b7e4c7" stroke-width="1" fill="none"/>
+                          </svg>
+                          <svg class="absolute top-0 h-full w-3 -translate-x-1/2" style="left: {selfValues[i]}%" viewBox="0 0 12 16">
+                            <path d="M5 2 Q7 4, 6 8 Q5 12, 7 14" stroke="#2d6a4f" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                          </svg>
+                          <svg class="absolute top-0 h-full w-3 -translate-x-1/2" style="left: {childValues[i]}%" viewBox="0 0 12 16">
+                            <path d="M7 2 Q5 5, 6 8 Q7 11, 5 14" stroke="#c17856" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                          </svg>
+                        </div>
+                        <span class="font-body text-xs text-sage-500 w-20 flex-shrink-0">{dim.high}</span>
+                      </div>
+                    </div>
                   {/if}
                 {/each}
               </div>
@@ -150,7 +252,7 @@
             <div class="border-b border-dashed border-sage-200 min-h-[60px] flex items-end pb-1">
               <p class="font-body text-xs text-sage-300">
                 Este espacio se completará con tu respuesta al ejercicio.
-                <a href="/es/{chapter.slug}" class="print-hidden text-sage-500 underline hover:text-sage-700">Ir al capítulo →</a>
+                <a href="/es/{chapter.slug}#{exercise.id}" class="print-hidden text-sage-500 underline hover:text-sage-700">Ir al ejercicio →</a>
               </p>
             </div>
           {/if}

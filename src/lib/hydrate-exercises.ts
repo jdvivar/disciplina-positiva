@@ -40,6 +40,7 @@ export function hydrateExercises() {
 
     const wrapper = document.createElement('div');
     wrapper.className = 'exercise-slot';
+    wrapper.id = id;
     div.replaceWith(wrapper);
 
     mount(ExerciseRenderer, {

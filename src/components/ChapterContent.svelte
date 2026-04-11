@@ -23,7 +23,8 @@
     {#if prevChapter}
       <a
         href="/{locale}/{prevChapter.slug}"
-        class="flex-1 flex items-center gap-2.5 bg-sage-50 rounded-xl px-4 py-3 no-underline transition-colors hover:bg-sage-100"
+        class="flex items-center bg-sage-50 rounded-xl no-underline transition-colors hover:bg-sage-100
+          {nextChapter ? 'justify-center w-16 flex-shrink-0 self-stretch lg:flex-1 lg:w-auto lg:justify-start lg:gap-2.5 lg:px-4 lg:py-3' : 'flex-1 gap-2.5 px-4 py-3'}"
       >
         <svg class="w-5 h-5 text-sage-600 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
           <path
@@ -32,13 +33,13 @@
             clip-rule="evenodd"
           />
         </svg>
-        <span>
+        <span class="{nextChapter ? 'hidden lg:block' : ''}">
           <span class="block font-body text-xs uppercase tracking-wider text-sage-500">{t('chapter.prev', locale)}</span>
           <span class="block font-heading text-sm font-semibold text-sage-900">{prevChapter.title}</span>
         </span>
       </a>
     {:else}
-      <div class="flex-1"></div>
+      <div class="w-16 flex-shrink-0 lg:flex-1 lg:w-auto"></div>
     {/if}
 
     {#if nextChapter}

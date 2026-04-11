@@ -32,5 +32,5 @@
 {:else if exercise.type === 'radio'}
   <ExerciseRadio id={exercise.id} title={exercise.title} instructions={exercise.instructions} radioQuestions={exercise.radioQuestions} number={exercise.number} {onSave} />
 {:else if exercise.type === 'temperament-comparison'}
-  <TemperamentComparison />
+  <TemperamentComparison {onSave} />
 {/if}

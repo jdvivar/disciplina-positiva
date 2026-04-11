@@ -3,6 +3,7 @@
   import { t } from '../lib/i18n';
   import { loadProgress, countCompleted } from '../lib/progress';
   import ProgressBar from './ProgressBar.svelte';
+  import ThemeToggle from './ThemeToggle.svelte';
 
   interface Props {
     chapters: ChapterMeta[];
@@ -64,8 +65,8 @@
 
 <nav class="flex flex-col h-full bg-sage-50 border-r border-sage-100">
   <!-- Logo / Title -->
-  <div class="px-9 pt-6 pb-4">
-    <a href="/" data-astro-reload class="flex items-center gap-3 font-heading text-lg font-semibold text-sage-700 leading-tight hover:text-sage-900 transition-colors">
+  <div class="pl-9 pr-5 pt-6 pb-4 flex items-center gap-3">
+    <a href="/" data-astro-reload class="flex items-center gap-3 font-heading text-lg font-semibold text-sage-700 leading-tight hover:text-sage-900 transition-colors flex-1">
       <svg class="w-7 h-7 flex-shrink-0" viewBox="6 10 68 60" fill="none">
         <path d="M12 56C12 56 18 46 28 42C34 40 38 39 42 39C46 39 52 40 58 44C62 47 64 52 62 56C58 62 48 64 40 64C30 64 20 62 12 56Z" fill="#52796f"/>
         <path d="M40 39V14" stroke="#40916c" stroke-width="5" stroke-linecap="round"/>
@@ -74,6 +75,7 @@
       </svg>
       {t('site.title', lang)}
     </a>
+    <ThemeToggle />
   </div>
 
   <!-- Chapter list -->

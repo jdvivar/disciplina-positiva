@@ -48,12 +48,12 @@
   }
 </script>
 
-<div class="exercise-card my-6 rounded-2xl p-6 border-3 {saved ? 'bg-[#f7faf8] border-sage-200' : 'bg-sage-50 border-sage-600'}">
+<div class="exercise-card my-6 rounded-2xl p-6 border-3 {saved ? 'bg-[var(--color-exercise-done)] border-sage-200' : 'bg-sage-50 border-sage-600'}">
   <div class="mb-3">
     <ExerciseBadge number={number} />
   </div>
 
-  <h3 class="mb-2 font-heading text-lg font-semibold text-sage-700">{title}</h3>
+  <h3 class="mb-2 font-heading text-lg font-semibold text-sage-700"><a href="#{id}">{title}</a></h3>
   <p class="mb-6 font-body text-sm leading-relaxed text-sage-500">{instructions}</p>
 
   <div class="space-y-6">

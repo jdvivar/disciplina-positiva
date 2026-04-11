@@ -5,6 +5,7 @@
   import { countCompleted } from '../lib/progress';
   import Sidebar from './Sidebar.svelte';
   import ProgressBar from './ProgressBar.svelte';
+  import ThemeToggle from './ThemeToggle.svelte';
 
   interface Props {
     chapters: ChapterMeta[];
@@ -64,6 +65,8 @@
     <span class="font-heading text-sm font-semibold text-sage-700 flex-1 truncate">
       {t('site.title', locale)}
     </span>
+
+    <ThemeToggle />
 
     <!-- Compact progress -->
     <div class="w-16">
