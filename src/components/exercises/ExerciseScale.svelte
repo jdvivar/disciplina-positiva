@@ -42,7 +42,7 @@
   }
 </script>
 
-<div class="my-6 rounded-2xl bg-sage-50 p-6">
+<div class="my-6 rounded-2xl bg-sage-50 p-6 border-3 border-sage-600">
   <div class="mb-3 flex items-center gap-2">
     <ExerciseBadge completed={saved} />
   </div>
