@@ -20,18 +20,18 @@
   --font-body: 'Inter', sans-serif;
 }
 
-/* Content headings — Fraunces serif */
-h1, h2, h3, h4, h5, h6 {
+/* Content headings — scoped to content area only */
+main h1, main h2, main h3, main h4, main h5, main h6 {
   font-family: 'Fraunces', serif;
   color: var(--color-sage-900);
   margin-top: 3em;
   margin-bottom: 2em;
 }
 
-h1 { font-size: 2.5em; }
-h2 { font-size: 2.2em; }
-h3 { font-size: 1.8em; }
-h4 { font-size: 1.5em; }
+main h1 { font-size: 2.5em; }
+main h2 { font-size: 2.2em; }
+main h3 { font-size: 1.8em; }
+main h4 { font-size: 1.5em; }
 
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
