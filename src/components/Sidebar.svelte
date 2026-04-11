@@ -123,7 +123,7 @@
   </div>
 
   <!-- Overall progress -->
-  <div class="px-5 pb-5 pt-2 border-t border-sage-100">
+  <div class="px-5 py-3 border-t border-sage-100 flex items-center">
     <ProgressBar
       completed={totalCompleted}
       total={totalExercises}
