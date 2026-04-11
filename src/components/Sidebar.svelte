@@ -110,7 +110,7 @@
   <div class="px-3 pb-2 space-y-1.5">
     <a
       href="/{lang}/diario"
-      class="block px-6 py-5 rounded-lg font-heading text-sm text-sage-600 hover:bg-sage-100 transition-colors no-underline"
+      class="block px-6 py-5 rounded-lg font-heading text-sm text-sage-500 hover:bg-sage-100 transition-colors no-underline"
     >
       {t('nav.journal', lang)}
     </a>
