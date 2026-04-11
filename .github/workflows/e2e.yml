@@ -7,7 +7,7 @@ on:
 jobs:
   e2e:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -26,14 +26,17 @@ jobs:
 
       - run: npx playwright install chromium
 
-      - name: Build site
-        run: npx astro build
+      - name: Wait for Vercel preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.2
+        id: vercel
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 300
 
       - name: Run E2E tests
-        run: |
-          npx astro preview --port 4321 &
-          sleep 3
-          PLAYWRIGHT_BASE_URL=http://localhost:4321 npx playwright test
+        run: npx playwright test
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ steps.vercel.outputs.url }}
 
       - uses: actions/upload-artifact@v4
         if: failure()
