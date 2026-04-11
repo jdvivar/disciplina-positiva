@@ -76,6 +76,14 @@ main a[target="_blank"]::after {
   margin-top: 0;
 }
 
+/* Heading + subtitle label: label tight under heading, gap after label */
+main h2:has(+ .chapter-label) {
+  margin-bottom: 1rem;
+}
+main h2 + .chapter-label {
+  margin-bottom: 3.4rem;
+}
+
 /* Content headings — scoped to content area only */
 main h1, main h2, main h3, main h4, main h5, main h6 {
   font-family: 'Fraunces', serif;
