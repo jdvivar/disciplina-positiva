@@ -23,7 +23,7 @@
 </script>
 
 <!-- Prev/Next navigation — fixed bottom bar -->
-<nav class="fixed bottom-0 left-0 lg:left-[280px] right-0 z-20 border-t border-sage-100 px-6" style="background-color: #f7faf8; min-height: 80px; display: flex; align-items: center;">
+<nav class="fixed bottom-0 left-0 lg:left-[320px] right-0 z-20 border-t border-sage-100 px-6" style="background-color: #f7faf8; min-height: 80px; display: flex; align-items: center;">
   <div class="max-w-[65ch] mx-auto flex items-center justify-between w-full">
     {#if prevChapter}
       <a

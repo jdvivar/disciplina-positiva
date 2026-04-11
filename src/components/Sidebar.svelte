@@ -64,7 +64,7 @@
 
 <nav class="flex flex-col h-full bg-sage-50 border-r border-sage-100">
   <!-- Logo / Title -->
-  <div class="px-5 pt-6 pb-4">
+  <div class="px-9 pt-6 pb-4">
     <a href="/" class="flex items-center gap-3 font-heading text-lg font-semibold text-sage-700 leading-tight hover:text-sage-900 transition-colors">
       <svg class="w-7 h-7 flex-shrink-0" viewBox="6 10 68 60" fill="none">
         <path d="M12 56C12 56 18 46 28 42C34 40 38 39 42 39C46 39 52 40 58 44C62 47 64 52 62 56C58 62 48 64 40 64C30 64 20 62 12 56Z" fill="#52796f"/>
@@ -78,14 +78,14 @@
 
   <!-- Chapter list -->
   <div class="flex-1 overflow-y-auto px-3">
-    <ul class="space-y-1">
+    <ul class="space-y-1.5">
       {#each navChapters as chapter (chapter.slug)}
         {@const status = chapterStatuses.get(chapter.slug) ?? 'pending'}
         {@const isCurrent = chapter.slug === currentSlug}
         <li>
           <a
             href="/{lang}/{chapter.slug}"
-            class="group block px-3 py-2 rounded-lg transition-all no-underline
+            class="group block px-6 py-5 rounded-lg transition-all no-underline
               {isCurrent
                 ? 'bg-sage-100'
                 : 'hover:bg-sage-100/50'}"
@@ -107,23 +107,23 @@
   </div>
 
   <!-- Journal & About links -->
-  <div class="px-3 pb-2 space-y-0.5">
+  <div class="px-3 pb-2 space-y-1.5">
     <a
       href="/{lang}/diario"
-      class="block px-2 py-1.5 rounded-md text-sm text-sage-600 hover:bg-sage-100 transition-colors no-underline"
+      class="block px-6 py-5 rounded-lg text-sm text-sage-600 hover:bg-sage-100 transition-colors no-underline"
     >
       {t('nav.journal', lang)}
     </a>
     <a
       href="/{lang}/about"
-      class="block px-2 py-1.5 rounded-md text-sm text-sage-500 hover:bg-sage-100 transition-colors no-underline"
+      class="block px-6 py-5 rounded-lg text-sm text-sage-500 hover:bg-sage-100 transition-colors no-underline"
     >
       {t('nav.about', lang)}
     </a>
   </div>
 
   <!-- Overall progress — matches sticky bottom nav height -->
-  <div class="px-5 border-t border-sage-100" style="min-height: 80px; display: flex; align-items: center;">
+  <div class="px-9 border-t border-sage-100" style="min-height: 80px; display: flex; align-items: center;">
     <div class="w-full">
       <ProgressBar
         completed={totalCompleted}

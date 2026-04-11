@@ -37,7 +37,7 @@
 </script>
 
 <!-- Desktop sidebar (lg+) -->
-<div class="hidden lg:block fixed inset-y-0 left-0 w-[280px] z-30">
+<div class="hidden lg:block fixed inset-y-0 left-0 w-[320px] z-30">
   <Sidebar
     {chapters}
     {currentSlug}
@@ -83,7 +83,7 @@
   ></button>
 
   <!-- Drawer panel -->
-  <div class="lg:hidden fixed inset-y-0 left-0 z-50 w-[280px] shadow-lg transition-transform">
+  <div class="lg:hidden fixed inset-y-0 left-0 z-50 w-[320px] shadow-lg transition-transform">
     <Sidebar
       {chapters}
       {currentSlug}
@@ -94,7 +94,7 @@
 {/if}
 
 <!-- Main content -->
-<main class="lg:ml-[280px] min-h-screen" style="background-color: #f7faf8;">
+<main class="lg:ml-[320px] min-h-screen" style="background-color: #f7faf8;">
   <!-- Spacer for mobile top bar -->
   <div class="lg:hidden h-12"></div>
 
