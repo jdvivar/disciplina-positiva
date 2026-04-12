@@ -31,3 +31,4 @@ public/admin/
 # Vercel
 .vercel/
 .vercel
+test-results/

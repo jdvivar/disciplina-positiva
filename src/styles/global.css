@@ -340,7 +340,7 @@ blockquote cite {
   background-color: var(--color-sage-100);
 }
 .dark nav a.bg-sage-600 {
-  background-color: var(--color-sage-700);
+  background-color: #2d6a4f;
 }
 .dark nav a.bg-sage-600 .text-sage-200 {
   color: var(--color-sage-900);

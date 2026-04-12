@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { ChapterMeta } from '../lib/types';
   import { t, getLocale } from '../lib/i18n';
+  import { markChapterRead } from '../lib/progress';
 
   interface Props {
     chapter: ChapterMeta;
@@ -15,6 +16,26 @@
   }: Props = $props();
 
   let locale = $derived(getLocale());
+  let reachedBottom = $state(false);
+
+  $effect(() => {
+    function onScroll() {
+      const scrolled = window.innerHeight + window.scrollY;
+      const total = document.documentElement.scrollHeight;
+      if (total - scrolled < 200) {
+        reachedBottom = true;
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  });
+
+  function handleNextClick() {
+    if (reachedBottom && chapter.exercises.length === 0) {
+      markChapterRead(chapter.slug);
+      window.dispatchEvent(new CustomEvent('exercise-saved'));
+    }
+  }
 </script>
 
 <!-- Prev/Next navigation — fixed bottom bar -->
@@ -45,6 +66,7 @@
     {#if nextChapter}
       <a
         href="/{locale}/{nextChapter.slug}"
+        onclick={handleNextClick}
         class="flex-1 flex items-center gap-2.5 bg-sage-600 rounded-xl px-4 py-3 no-underline text-right justify-end transition-colors hover:bg-sage-700"
       >
         <span>

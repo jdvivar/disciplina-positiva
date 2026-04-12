@@ -39,3 +39,28 @@ export function countCompleted(exerciseIds: string[]): number {
 export function getTotalExerciseCount(): number {
   return 9;
 }
+
+const CHAPTERS_READ_KEY = 'dp-chapters-read';
+
+export function markChapterRead(slug: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const raw = localStorage.getItem(CHAPTERS_READ_KEY);
+    const set: string[] = raw ? JSON.parse(raw) : [];
+    if (!set.includes(slug)) {
+      set.push(slug);
+      localStorage.setItem(CHAPTERS_READ_KEY, JSON.stringify(set));
+    }
+  } catch {}
+}
+
+export function isChapterRead(slug: string): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const raw = localStorage.getItem(CHAPTERS_READ_KEY);
+    const set: string[] = raw ? JSON.parse(raw) : [];
+    return set.includes(slug);
+  } catch {
+    return false;
+  }
+}
