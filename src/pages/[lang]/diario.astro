@@ -17,22 +17,43 @@ const allEntries = await getCollection('es');
 const sorted = [...allEntries].sort((a, b) => a.data.order - b.data.order);
 
 const pagesMeta: PageMeta[] = sorted.map((e) => {
-  const hasSlash = e.id.includes('/');
+  const slug = e.id.endsWith('/index') ? e.id.replace(/\/index$/, '') : e.id;
+  const hasSlash = slug.includes('/');
   return {
     title: e.data.title,
     chapter: e.data.chapter,
     order: e.data.order,
-    slug: e.id,
+    slug,
     exercises: extractExercisesFromRaw(e.body ?? ''),
-    parentSlug: hasSlash ? e.id.split('/')[0] : undefined,
-    isIndex: !hasSlash,
+    parentSlug: hasSlash ? slug.split('/')[0] : undefined,
+    isIndex: e.id.endsWith('/index') || !e.id.includes('/'),
   };
 });
+
+// Group pages by chapter for the journal (merge exercises under one chapter heading)
+import type { ChapterMeta } from '../../lib/types';
+const chapterMap = new Map<string, ChapterMeta>();
+for (const page of pagesMeta) {
+  const groupSlug = page.parentSlug ?? page.slug;
+  if (!chapterMap.has(groupSlug)) {
+    // Use the index page's title and chapter number
+    const indexPage = pagesMeta.find(p => p.slug === groupSlug);
+    chapterMap.set(groupSlug, {
+      title: indexPage?.title ?? page.title,
+      chapter: indexPage?.chapter ?? page.chapter,
+      order: indexPage?.order ?? page.order,
+      slug: groupSlug,
+      exercises: [],
+    });
+  }
+  chapterMap.get(groupSlug)!.exercises.push(...page.exercises);
+}
+const chaptersForJournal = Array.from(chapterMap.values()).filter(ch => ch.exercises.length > 0);
 ---
 
 <BaseLayout title="Mi Diario de Crianza">
   <AppShell pages={pagesMeta} currentSlug="diario" client:load>
-    <Journal chapters={pagesMeta} client:load />
+    <Journal chapters={chaptersForJournal} client:load />
     <ChapterContent
       page={{ title: 'Mi Diario de Crianza', slug: 'diario', order: 998, exercises: [], isIndex: true }}
       prevPage={pagesMeta.find(p => p.slug === 'conclusion') ?? null}
