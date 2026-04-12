@@ -4,7 +4,7 @@ test.describe('Journal', () => {
   test('journal page shows all chapters with exercises', async ({ page }) => {
     await page.goto('/es/diario');
     await expect(page.locator('h1')).toContainText('Diario');
-    const chapters = page.locator('.print-chapter');
+    const chapters = page.locator('[data-testid="journal-chapter"]');
     expect(await chapters.count()).toBeGreaterThan(0);
   });
 
@@ -20,7 +20,7 @@ test.describe('Journal', () => {
     const card = page.locator('.exercise-card').first();
     await card.locator('textarea').first().fill('Texto abierto para diario');
     await card.locator('button', { hasText: 'Guardar' }).click();
-    await expect(card.locator('span.text-sage-400')).toBeVisible();
+    await expect(card.locator('[data-testid="saved-at"]')).toBeVisible();
 
     await page.goto('/es/diario');
     await expect(page.getByText('Texto abierto para diario')).toBeVisible();
@@ -31,7 +31,7 @@ test.describe('Journal', () => {
     const card = page.locator('.exercise-card').first();
     await card.locator('input[type="text"]').first().fill('Primer objetivo listado');
     await card.locator('button', { hasText: 'Guardar' }).click();
-    await expect(card.locator('span.text-sage-400')).toBeVisible();
+    await expect(card.locator('[data-testid="saved-at"]')).toBeVisible();
 
     await page.goto('/es/diario');
     await expect(page.getByText('Primer objetivo listado')).toBeVisible();
@@ -45,7 +45,7 @@ test.describe('Journal', () => {
     const card = cards.nth(1);
     await card.locator('input[type="text"]').first().fill('Calidez multi-section test');
     await card.locator('button', { hasText: 'Guardar' }).click();
-    await expect(card.locator('span.text-sage-400')).toBeVisible();
+    await expect(card.locator('[data-testid="saved-at"]')).toBeVisible();
 
     await page.goto('/es/diario');
     await expect(page.getByText('Calidez multi-section test')).toBeVisible();
@@ -58,7 +58,7 @@ test.describe('Journal', () => {
     await input.fill('Motivo guiado test');
     await card.locator('button', { hasText: 'Agregar' }).click();
     await card.locator('button', { hasText: 'Guardar' }).click();
-    await expect(card.locator('span.text-sage-400')).toBeVisible();
+    await expect(card.locator('[data-testid="saved-at"]')).toBeVisible();
 
     await page.goto('/es/diario');
     await expect(page.getByText('Motivo guiado test')).toBeVisible();
@@ -71,7 +71,7 @@ test.describe('Journal', () => {
     // Select the first option of the first question
     await card.locator('input[type="radio"]').first().click();
     await card.locator('button', { hasText: 'Guardar' }).click();
-    await expect(card.locator('span.text-sage-400')).toBeVisible();
+    await expect(card.locator('[data-testid="saved-at"]')).toBeVisible();
 
     await page.goto('/es/diario');
     // The selected option text should appear
@@ -88,7 +88,7 @@ test.describe('Journal', () => {
 
     await page.goto('/es/diario');
     // The journal should show dimension names from the sketchy scale visualization
-    const journal = page.locator('.print-journal');
+    const journal = page.locator('[data-testid="journal"]');
     await expect(journal.getByText('Nivel de actividad').first()).toBeVisible();
   });
 
@@ -102,7 +102,7 @@ test.describe('Journal', () => {
     const notesTextarea = textareas.last();
     await notesTextarea.fill('Mi nota personal para el diario');
     await card.locator('button', { hasText: 'Guardar' }).click();
-    await expect(card.locator('span.text-sage-400')).toBeVisible();
+    await expect(card.locator('[data-testid="saved-at"]')).toBeVisible();
 
     await page.goto('/es/diario');
     await expect(page.getByText('Mi nota personal para el diario')).toBeVisible();

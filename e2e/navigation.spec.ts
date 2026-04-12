@@ -13,7 +13,7 @@ test.describe('Navigation', () => {
   test('sidebar navigation works', async ({ page }) => {
     await page.goto('/es/intro');
     // Use the desktop sidebar specifically (not bottom nav)
-    const sidebarLink = page.locator('.hidden.lg\\:block a[href="/es/chapter-1"]');
+    const sidebarLink = page.locator('[data-testid="sidebar"] a[href="/es/chapter-1"]');
     await expect(sidebarLink).toBeVisible();
     await sidebarLink.click();
     await expect(page).toHaveURL(/\/es\/chapter-1/);
@@ -21,7 +21,10 @@ test.describe('Navigation', () => {
 
   test('bottom nav prev/next works', async ({ page }) => {
     await page.goto('/es/chapter-1');
-    const nextLink = page.locator('nav.fixed a.bg-sage-600');
+    // Scroll up to reveal the bottom nav
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await page.waitForTimeout(400);
+    const nextLink = page.locator('[data-testid="nav-next"]');
     await expect(nextLink).toBeVisible();
     await nextLink.click();
     await expect(page).toHaveURL(/\/es\/chapter-2/);

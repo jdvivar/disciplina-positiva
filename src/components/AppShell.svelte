@@ -38,7 +38,7 @@
 </script>
 
 <!-- Desktop sidebar (lg+) -->
-<div class="hidden lg:block fixed inset-y-0 left-0 w-[320px] z-30">
+<div class="hidden lg:block fixed inset-y-0 left-0 w-[320px] z-30" data-testid="sidebar">
   <Sidebar
     {chapters}
     {currentSlug}
