@@ -39,7 +39,8 @@ test.describe('Exercises', () => {
   });
 
   test('guided-list exercise allows adding items', async ({ page }) => {
-    await page.goto('/es/chapter-4');
+    // Guided-list exercises are on age sub-pages in chapter 4
+    await page.goto('/es/chapter-4/0-a-6-meses');
     const card = page.locator('.exercise-card').first();
     const input = card.locator('input[type="text"]');
     await input.fill('Primer motivo');
