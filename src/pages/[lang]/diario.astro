@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import type { ChapterMeta } from '../../lib/types';
+import type { PageMeta } from '../../lib/types';
 import { extractExercisesFromRaw } from '../../lib/extract-exercises';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AppShell from '../../components/AppShell.svelte';
@@ -12,30 +12,31 @@ export async function getStaticPaths() {
   return [{ params: { lang: 'es' } }];
 }
 
-const allChapters = await getCollection('es');
+const allEntries = await getCollection('es');
 
-// Sort chapters by order
-const sorted = [...allChapters].sort((a, b) => a.data.order - b.data.order);
+const sorted = [...allEntries].sort((a, b) => a.data.order - b.data.order);
 
-// Extract exercises from raw MDX source (shared with [...slug].astro)
-
-// Build ChapterMeta[] for all chapters
-const chaptersMeta: ChapterMeta[] = sorted.map((ch) => ({
-  title: ch.data.title,
-  chapter: ch.data.chapter,
-  order: ch.data.order,
-  slug: ch.id,
-  exercises: extractExercisesFromRaw(ch.body ?? ''),
-}));
+const pagesMeta: PageMeta[] = sorted.map((e) => {
+  const hasSlash = e.id.includes('/');
+  return {
+    title: e.data.title,
+    chapter: e.data.chapter,
+    order: e.data.order,
+    slug: e.id,
+    exercises: extractExercisesFromRaw(e.body ?? ''),
+    parentSlug: hasSlash ? e.id.split('/')[0] : undefined,
+    isIndex: !hasSlash,
+  };
+});
 ---
 
 <BaseLayout title="Mi Diario de Crianza">
-  <AppShell chapters={chaptersMeta} currentSlug="diario" client:load>
-    <Journal chapters={chaptersMeta} client:load />
+  <AppShell pages={pagesMeta} currentSlug="diario" client:load>
+    <Journal chapters={pagesMeta} client:load />
     <ChapterContent
-      chapter={{ title: 'Mi Diario de Crianza', slug: 'diario', order: 998, exercises: [] }}
-      prevChapter={chaptersMeta.find(c => c.slug === 'conclusion') ?? null}
-      nextChapter={chaptersMeta.find(c => c.slug === 'about') ?? null}
+      page={{ title: 'Mi Diario de Crianza', slug: 'diario', order: 998, exercises: [], isIndex: true }}
+      prevPage={pagesMeta.find(p => p.slug === 'conclusion') ?? null}
+      nextPage={pagesMeta.find(p => p.slug === 'about') ?? null}
       client:load
     />
   </AppShell>

@@ -1,74 +1,68 @@
 ---
 import { getCollection, render } from 'astro:content';
-import type { ChapterMeta } from '../../lib/types';
+import type { PageMeta } from '../../lib/types';
 import { extractExercisesFromRaw } from '../../lib/extract-exercises';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AppShell from '../../components/AppShell.svelte';
 import ChapterContent from '../../components/ChapterContent.svelte';
 
 export async function getStaticPaths() {
-  const chapters = await getCollection('es');
-  return chapters.map((chapter) => ({
-    params: { lang: 'es', slug: chapter.id },
+  const entries = await getCollection('es');
+  return entries.map((entry) => ({
+    params: { lang: 'es', slug: entry.id },
   }));
 }
 
 const { slug } = Astro.params;
-const allChapters = await getCollection('es');
+const allEntries = await getCollection('es');
 
-// Sort chapters by order
-const sorted = [...allChapters].sort((a, b) => a.data.order - b.data.order);
+const sorted = [...allEntries].sort((a, b) => a.data.order - b.data.order);
 
-// Find current chapter
-const currentEntry = sorted.find((ch) => ch.id === slug);
+const currentEntry = sorted.find((e) => e.id === slug);
 if (!currentEntry) {
   return Astro.redirect('/es/intro');
 }
 
-// Extract exercises from raw MDX source (the data attributes are in the raw source)
+const pagesMeta: PageMeta[] = sorted.map((e) => {
+  const hasSlash = e.id.includes('/');
+  return {
+    title: e.data.title,
+    chapter: e.data.chapter,
+    order: e.data.order,
+    slug: e.id,
+    exercises: extractExercisesFromRaw(e.body ?? ''),
+    parentSlug: hasSlash ? e.id.split('/')[0] : undefined,
+    isIndex: !hasSlash,
+  };
+});
 
-// Build chapter metadata for sidebar (using raw body to extract exercises)
-const chaptersMeta: ChapterMeta[] = sorted.map((ch) => ({
-  title: ch.data.title,
-  chapter: ch.data.chapter,
-  order: ch.data.order,
-  slug: ch.id,
-  exercises: extractExercisesFromRaw(ch.body ?? ''),
-}));
+const currentIdx = sorted.findIndex((e) => e.id === slug);
+const currentMeta = pagesMeta[currentIdx];
+const prevMeta = currentIdx > 0 ? pagesMeta[currentIdx - 1] : null;
 
-// Current chapter navigation
-const currentIdx = sorted.findIndex((ch) => ch.id === slug);
-const currentMeta = chaptersMeta[currentIdx];
-const prevMeta = currentIdx > 0 ? chaptersMeta[currentIdx - 1] : null;
-
-// Navigation flow: after the last content chapter (about), no next.
-// conclusion → diario, diario doesn't use this page, about → null
 const isConclusion = currentMeta.slug === 'conclusion';
 const isAbout = currentMeta.slug === 'about';
 const nextMeta = isConclusion
-  ? { title: 'Mi Diario de Crianza', slug: 'diario', order: 998, exercises: [] } as typeof chaptersMeta[0]
+  ? { title: 'Mi Diario de Crianza', slug: 'diario', order: 998, exercises: [], isIndex: true } as PageMeta
   : isAbout
     ? null
-    : currentIdx < chaptersMeta.length - 1 ? chaptersMeta[currentIdx + 1] : null;
+    : currentIdx < pagesMeta.length - 1 ? pagesMeta[currentIdx + 1] : null;
 
-// Render the current chapter's MDX (Astro 6: render is a standalone function)
 const { Content } = await render(currentEntry);
-
-// Pass exercise data as JSON for client-side hydration
 const exercisesJson = JSON.stringify(currentMeta.exercises);
 ---
 
 <BaseLayout title={currentEntry.data.title}>
-  <AppShell chapters={chaptersMeta} currentSlug={slug!} client:load>
+  <AppShell pages={pagesMeta} currentSlug={slug!} client:load>
     <div class="chapter-page" data-exercises={exercisesJson} data-chapter-number={currentMeta.chapter ?? 0}>
       <article class="prose prose-sage max-w-none">
         <Content />
       </article>
 
       <ChapterContent
-        chapter={currentMeta}
-        prevChapter={prevMeta}
-        nextChapter={nextMeta}
+        page={currentMeta}
+        prevPage={prevMeta}
+        nextPage={nextMeta}
         client:load
       />
     </div>
@@ -77,6 +71,9 @@ const exercisesJson = JSON.stringify(currentMeta.exercises);
 
 <script>
   import { hydrateExercises } from '../../lib/hydrate-exercises';
+  import { migrateChapterProgress } from '../../lib/progress';
+
+  migrateChapterProgress();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', hydrateExercises);

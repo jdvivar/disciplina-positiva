@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { ChapterMeta } from '../lib/types';
+  import type { PageMeta } from '../lib/types';
   import { loadProgress } from '../lib/progress';
   import { t } from '../lib/i18n';
 
   interface Props {
-    chapters: ChapterMeta[];
+    chapters: PageMeta[];
   }
 
   let { chapters }: Props = $props();

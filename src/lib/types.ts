@@ -26,3 +26,13 @@ export interface ChapterMeta {
   slug: string;
   exercises: ExerciseData[];
 }
+
+export interface PageMeta {
+  title: string;
+  chapter?: number;
+  order: number;
+  slug: string;
+  exercises: ExerciseData[];
+  parentSlug?: string;
+  isIndex: boolean;
+}
