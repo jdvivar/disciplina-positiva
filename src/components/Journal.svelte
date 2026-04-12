@@ -106,7 +106,7 @@
             {#if childVals2.length > 0 && selfVals2.length > 0}
               <div class="mb-2 flex gap-4 font-body text-xs">
                 <span class="flex items-center gap-1"><svg class="w-3 h-4" viewBox="0 0 12 16"><path d="M5 2 Q7 4, 6 8 Q5 12, 7 14" stroke="#2d6a4f" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg> Usted</span>
-                <span class="flex items-center gap-1"><svg class="w-3 h-4" viewBox="0 0 12 16"><path d="M7 2 Q5 5, 6 8 Q7 11, 5 14" stroke="#c17856" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg> Su hijo(a)</span>
+                <span class="flex items-center gap-1"><svg class="w-3 h-4" viewBox="0 0 12 16"><path d="M7 2 Q5 5, 6 8 Q7 11, 5 14" stroke="#c17856" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg> Su hijo/a</span>
               </div>
               <div class="space-y-3 mb-4">
                 {#each dimensions as dim, i}
