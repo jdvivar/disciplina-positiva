@@ -78,7 +78,7 @@
 <div class="exercise-card my-6 rounded-2xl p-6 border-3 {saved ? 'bg-[var(--color-exercise-done)] border-sage-200' : 'bg-sage-50 border-sage-600'}">
   <h3 class="mb-2 font-heading text-lg font-semibold text-sage-700"><a href="#temperament-combo">La combinación de temperamentos</a></h3>
   <p class="mb-4 font-body text-sm leading-relaxed text-sage-500">
-    Comparación entre las puntuaciones de temperamento de su hijo(a) y las suyas.
+    Comparación entre las puntuaciones de temperamento de su hijo/a y las suyas.
   </p>
 
   {#if ready}
@@ -87,7 +87,7 @@
         <span class="inline-block h-3 w-3 rounded-full bg-sage-600"></span> Usted
       </span>
       <span class="flex items-center gap-2">
-        <span class="inline-block h-3 w-3 rounded-full" style="background: #c17856;"></span> Su hijo(a)
+        <span class="inline-block h-3 w-3 rounded-full" style="background: #c17856;"></span> Su hijo/a
       </span>
     </div>
 
@@ -109,7 +109,7 @@
             <div
               class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-4 w-4 rounded-full border-2 border-white shadow"
               style="left: {childValues![i]}%; background: #c17856;"
-              title="Su hijo(a): {childValues![i]}"
+              title="Su hijo/a: {childValues![i]}"
             ></div>
           </div>
         </div>
@@ -121,7 +121,7 @@
     <div class="space-y-4 mb-8">
       {#each Array(DIFF_COUNT) as _, i}
         <div class="space-y-2">
-          <p class="font-body text-sm font-medium text-sage-700">Mi hijo(a) y yo nos diferenciamos en:</p>
+          <p class="font-body text-sm font-medium text-sage-700">Mi hijo/a y yo nos diferenciamos en:</p>
           <textarea
             bind:value={differences[i * 2]}
             oninput={() => validationMessage = ''}
@@ -146,7 +146,7 @@
     <div class="space-y-4">
       {#each Array(SIM_COUNT) as _, i}
         <div class="space-y-2">
-          <p class="font-body text-sm font-medium text-sage-700">Mi hijo(a) y yo coincidimos en:</p>
+          <p class="font-body text-sm font-medium text-sage-700">Mi hijo/a y yo coincidimos en:</p>
           <textarea
             bind:value={similarities[i * 2]}
             oninput={() => validationMessage = ''}
