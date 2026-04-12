@@ -19,6 +19,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.2",
     "@tinacms/cli": "^2.2.2",
+    "@vercel/analytics": "^2.0.1",
     "astro": "^6.1.5",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
