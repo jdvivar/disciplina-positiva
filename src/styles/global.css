@@ -160,6 +160,41 @@ main h3:first-child {
   margin-bottom: 0;
 }
 
+/* Note — lighter aside with left border accent */
+.note,
+[data-note] {
+  border-left: 3px solid var(--color-sage-200);
+  padding: 12px 24px;
+  margin: 24px 0;
+}
+
+.note p,
+[data-note] p {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--color-sage-700);
+  line-height: 1.75;
+  margin: 0 0 10px;
+}
+
+.note p:last-child,
+[data-note] p:last-child {
+  margin-bottom: 0;
+}
+
+.note strong,
+[data-note] strong {
+  color: var(--color-sage-900);
+}
+
+.note li,
+[data-note] li {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--color-sage-700);
+  line-height: 1.75;
+}
+
 /* Pillars pyramid diagram */
 .pillars-pyramid {
   text-align: center;
