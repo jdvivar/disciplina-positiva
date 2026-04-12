@@ -17,14 +17,28 @@
 
   let locale = $derived(getLocale());
   let reachedBottom = $state(false);
+  let visible = $state(false);
+  let lastScrollY = $state(0);
 
   $effect(() => {
     function onScroll() {
-      const scrolled = window.innerHeight + window.scrollY;
+      const scrollY = window.scrollY;
+      const scrolled = window.innerHeight + scrollY;
       const total = document.documentElement.scrollHeight;
-      if (total - scrolled < 200) {
+      const atBottom = total - scrolled < 200;
+
+      if (atBottom) {
         reachedBottom = true;
+        visible = true;
+      } else if (scrollY < lastScrollY) {
+        // Scrolling up
+        visible = true;
+      } else {
+        // Scrolling down
+        visible = false;
       }
+
+      lastScrollY = scrollY;
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -39,7 +53,10 @@
 </script>
 
 <!-- Prev/Next navigation — fixed bottom bar -->
-<nav class="fixed bottom-0 left-0 lg:left-[320px] right-0 z-20 border-t border-[var(--color-border-layout)] px-4 bg-surface-light" style="height: var(--nav-height); display: flex; align-items: center;">
+<nav
+  class="fixed left-0 lg:left-[320px] right-0 z-20 border-t border-[var(--color-border-layout)] px-4 bg-surface-light transition-transform duration-300 ease-in-out {visible ? 'translate-y-0' : 'translate-y-full'}"
+  style="bottom: 0; height: var(--nav-height); display: flex; align-items: center;"
+>
   <div class="max-w-[65ch] mx-auto flex gap-3 w-full py-3">
     {#if prevChapter}
       <a
