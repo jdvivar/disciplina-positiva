@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Journal', () => {
   test('journal page shows all chapters with exercises', async ({ page }) => {
     await page.goto('/es/diario');
-    await expect(page.locator('h1')).toContainText('Diario');
+    await expect(page.locator('h1').first()).toContainText('Diario');
     const chapters = page.locator('[data-testid="journal-chapter"]');
     expect(await chapters.count()).toBeGreaterThan(0);
   });
@@ -75,7 +75,7 @@ test.describe('Journal', () => {
 
     await page.goto('/es/diario');
     // The selected option text should appear
-    await expect(page.getByText('Le dice lo que está haciendo bien')).toBeVisible();
+    await expect(page.getByText('Le dice lo que está haciendo bien').first()).toBeVisible();
   });
 
   test('self-assessment exercise appears in journal as visual scale', async ({ page }) => {

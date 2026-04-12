@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Navigation', () => {
   test('cover page loads and links to intro', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('h1')).toContainText('Disciplina');
+    await expect(page.locator('h1').first()).toContainText('Disciplina');
     const link = page.locator('a[href="/es/intro"]');
     await expect(link).toBeVisible();
     await link.click();
@@ -40,6 +40,6 @@ test.describe('Navigation', () => {
 
   test('journal page loads', async ({ page }) => {
     await page.goto('/es/diario');
-    await expect(page.locator('h1')).toContainText('Diario');
+    await expect(page.locator('h1').first()).toContainText('Diario');
   });
 });
