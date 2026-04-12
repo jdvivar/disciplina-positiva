@@ -17,6 +17,13 @@
   let lastScrollY = $state(0);
 
   $effect(() => {
+    // If page fits in viewport (no scrolling needed), show nav immediately
+    const noScroll = document.documentElement.scrollHeight <= window.innerHeight + 200;
+    if (noScroll) {
+      visible = true;
+      reachedBottom = true;
+    }
+
     function onScroll() {
       const scrollY = window.scrollY;
       const scrolled = window.innerHeight + scrollY;
