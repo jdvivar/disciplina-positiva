@@ -52,7 +52,7 @@
   </div>
 </div>
 
-<div class="print-journal max-w-[620px] mx-auto rounded-xl shadow-sm px-16 py-14" style="line-height: 1.8; background-color: #fefcf8;">
+<div class="print-journal max-w-[620px] mx-auto rounded-xl shadow-sm px-16 py-14" data-testid="journal" style="line-height: 1.8; background-color: #fefcf8;">
   <!-- Header -->
   <div class="print-header mb-10 pb-5 border-b border-sage-100">
     <h1 class="font-heading text-2xl font-bold text-sage-900 mb-1">
@@ -76,7 +76,7 @@
 
   <!-- Chapters -->
   {#each chaptersWithExercises as chapter, chapterIdx (chapter.slug)}
-    <div class="print-chapter {chapterIdx > 0 ? 'mt-8' : ''}">
+    <div class="print-chapter {chapterIdx > 0 ? 'mt-8' : ''}" data-testid="journal-chapter">
       <div class="mb-5">
         {#if chapter.chapter}
           <p class="font-body text-xs uppercase tracking-widest text-sage-500 mb-1">Capítulo {chapter.chapter}</p>

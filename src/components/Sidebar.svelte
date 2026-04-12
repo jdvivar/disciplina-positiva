@@ -137,9 +137,9 @@
                     class="flex items-center gap-2.5 pl-9 pr-6 py-1.5 font-body text-xs text-sage-500 rounded-md no-underline hover:bg-sage-100/50 transition-colors"
                   >
                     {#if done}
-                      <span class="h-1.5 w-1.5 rounded-full bg-sage-600 flex-shrink-0"></span>
+                      <span class="h-1.5 w-1.5 rounded-full bg-sage-600 flex-shrink-0" data-testid="exercise-done"></span>
                     {:else}
-                      <span class="h-1.5 w-1.5 rounded-full border border-sage-200 flex-shrink-0"></span>
+                      <span class="h-1.5 w-1.5 rounded-full border border-sage-200 flex-shrink-0" data-testid="exercise-pending"></span>
                     {/if}
                     <span class="flex-1">{exercise.title}</span>
                     {#if done}

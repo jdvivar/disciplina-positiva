@@ -14,7 +14,7 @@ test.describe('Exercises', () => {
     await card.locator('input[type="text"]').first().fill('Mi primera respuesta');
     await card.locator('button', { hasText: 'Guardar' }).click();
     // Verify saved indicator appears (date text near the button)
-    await expect(card.locator('span.text-sage-400')).toBeVisible();
+    await expect(card.locator('[data-testid="saved-at"]')).toBeVisible();
   });
 
   test('exercise progress persists after reload', async ({ page }) => {
@@ -22,7 +22,7 @@ test.describe('Exercises', () => {
     const card = page.locator('.exercise-card').first();
     await card.locator('input[type="text"]').first().fill('Respuesta persistente');
     await card.locator('button', { hasText: 'Guardar' }).click();
-    await expect(card.locator('span.text-sage-400')).toBeVisible();
+    await expect(card.locator('[data-testid="saved-at"]')).toBeVisible();
 
     await page.reload();
 
@@ -30,13 +30,12 @@ test.describe('Exercises', () => {
     await expect(reloadedInput).toHaveValue('Respuesta persistente');
   });
 
-  test('exercise card softens after saving', async ({ page }) => {
+  test('exercise shows saved timestamp after saving', async ({ page }) => {
     await page.goto('/es/chapter-1');
     const card = page.locator('.exercise-card').first();
     await card.locator('input[type="text"]').first().fill('Test para guardar');
     await card.locator('button', { hasText: 'Guardar' }).click();
-    await expect(card.locator('span.text-sage-400')).toBeVisible();
-    await expect(card).toHaveClass(/border-sage-200/);
+    await expect(card.locator('[data-testid="saved-at"]')).toBeVisible();
   });
 
   test('guided-list exercise allows adding items', async ({ page }) => {

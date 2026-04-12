@@ -61,6 +61,7 @@
     {#if prevChapter}
       <a
         href="/{locale}/{prevChapter.slug}"
+        data-testid="nav-prev"
         class="flex items-center bg-sage-50 rounded-xl no-underline transition-colors hover:bg-sage-100
           {nextChapter ? 'justify-center w-16 flex-shrink-0 self-stretch lg:flex-1 lg:w-auto lg:justify-start lg:gap-2.5 lg:px-4 lg:py-3' : 'flex-1 gap-2.5 px-4 py-3'}"
       >
@@ -84,6 +85,7 @@
       <a
         href="/{locale}/{nextChapter.slug}"
         onclick={handleNextClick}
+        data-testid="nav-next"
         class="flex-1 flex items-center gap-2.5 bg-sage-600 rounded-xl px-4 py-3 no-underline text-right justify-end transition-colors hover:bg-sage-700"
       >
         <span>
