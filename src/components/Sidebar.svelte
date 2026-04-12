@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ChapterMeta } from '../lib/types';
   import { t } from '../lib/i18n';
-  import { loadProgress, countCompleted } from '../lib/progress';
+  import { loadProgress, countCompleted, getExerciseProgress, isChapterRead } from '../lib/progress';
   import ProgressBar from './ProgressBar.svelte';
   import ThemeToggle from './ThemeToggle.svelte';
 
@@ -26,6 +26,15 @@
   // Export refreshProgress so parent can call it
   export { refreshProgress };
 
+  // Listen for exercise saves to refresh progress
+  $effect(() => {
+    function onExerciseSaved() {
+      refreshProgress();
+    }
+    window.addEventListener('exercise-saved', onExerciseSaved);
+    return () => window.removeEventListener('exercise-saved', onExerciseSaved);
+  });
+
   type ChapterStatus = 'done' | 'in-progress' | 'pending';
 
   let chapterStatuses = $derived.by(() => {
@@ -35,7 +44,7 @@
     const statuses: Map<string, ChapterStatus> = new Map();
     for (const ch of navChapters) {
       if (ch.exercises.length === 0) {
-        statuses.set(ch.slug, 'pending');
+        statuses.set(ch.slug, isChapterRead(ch.slug) ? 'done' : 'pending');
         continue;
       }
       const ids = ch.exercises.map((e) => e.id);
@@ -46,6 +55,18 @@
         statuses.set(ch.slug, 'in-progress');
       } else {
         statuses.set(ch.slug, 'pending');
+      }
+    }
+    return statuses;
+  });
+
+  // Per-exercise completion, reactive to progressVersion
+  let exerciseStatuses = $derived.by(() => {
+    void progressVersion;
+    const statuses: Map<string, boolean> = new Map();
+    for (const ch of navChapters) {
+      for (const ex of ch.exercises) {
+        statuses.set(ex.id, getExerciseProgress(ex.id)?.completed === true);
       }
     }
     return statuses;
@@ -87,12 +108,12 @@
         <li>
           <a
             href="/{lang}/{chapter.slug}"
-            class="group block px-6 py-5 rounded-lg transition-all no-underline
+            class="group flex items-start gap-2 px-6 py-5 rounded-lg transition-all no-underline
               {isCurrent
                 ? 'bg-sage-100'
                 : 'hover:bg-sage-100/50'}"
           >
-            <span>
+            <span class="flex-1">
               {#if chapter.chapter}
                 <span class="block font-body text-xs uppercase tracking-wider transition-colors {isCurrent ? 'text-sage-700' : 'text-sage-500 group-hover:text-sage-700'}">
                   Capítulo {chapter.chapter}
@@ -102,7 +123,33 @@
                 {chapter.title}
               </span>
             </span>
+            {#if status === 'done'}
+              <span class="text-sage-600 text-xs flex-shrink-0 mt-0.5">&#10003;</span>
+            {/if}
           </a>
+          {#if isCurrent && chapter.exercises.length > 0}
+            <ul class="pb-2">
+              {#each chapter.exercises as exercise}
+                {@const done = exerciseStatuses.get(exercise.id) === true}
+                <li>
+                  <a
+                    href="/{lang}/{chapter.slug}#{exercise.id}"
+                    class="flex items-center gap-2.5 pl-9 pr-6 py-1.5 font-body text-xs text-sage-500 rounded-md no-underline hover:bg-sage-100/50 transition-colors"
+                  >
+                    {#if done}
+                      <span class="h-1.5 w-1.5 rounded-full bg-sage-600 flex-shrink-0"></span>
+                    {:else}
+                      <span class="h-1.5 w-1.5 rounded-full border border-sage-200 flex-shrink-0"></span>
+                    {/if}
+                    <span class="flex-1">{exercise.title}</span>
+                    {#if done}
+                      <span class="text-sage-600 text-xs flex-shrink-0">&#10003;</span>
+                    {/if}
+                  </a>
+                </li>
+              {/each}
+            </ul>
+          {/if}
         </li>
       {/each}
     </ul>
