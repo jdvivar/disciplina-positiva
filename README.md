@@ -1,6 +1,10 @@
 # Disciplina Positiva
 
+![Disciplina Positiva — guía interactiva para familias](public/og-image.png)
+
 > "Disciplina Positiva" means "Positive Discipline" in Spanish. The site content is currently in Spanish, with i18n support built in for adding more languages.
+
+Live at [disciplina-positiva.danielvivar.com](https://disciplina-positiva.danielvivar.com).
 
 An interactive learning site for parents who want to learn about positive discipline. Based on the manual by Dr. Joan E. Durrant, adapted by ACHNU Chile (Save the Children).
 

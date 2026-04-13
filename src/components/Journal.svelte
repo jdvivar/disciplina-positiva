@@ -68,8 +68,8 @@
     <div class="bg-sage-50 rounded-lg px-5 py-4 border border-sage-100">
       <p class="font-body text-sm font-medium text-sage-700">
         Creado en
-        <a href="https://disciplina-positiva.vercel.app" class="text-sage-600 underline print-hidden">https://disciplina-positiva.vercel.app</a>
-        <span class="hidden print:inline">https://disciplina-positiva.vercel.app</span>
+        <a href="https://disciplina-positiva.danielvivar.com" class="text-sage-600 underline print-hidden">https://disciplina-positiva.danielvivar.com</a>
+        <span class="hidden print:inline">https://disciplina-positiva.danielvivar.com</span>
       </p>
     </div>
   </div>
