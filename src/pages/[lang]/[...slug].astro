@@ -5,6 +5,7 @@ import { extractExercisesFromRaw } from '../../lib/extract-exercises';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AppShell from '../../components/AppShell.svelte';
 import ChapterContent from '../../components/ChapterContent.svelte';
+import PlantOrnament from '../../components/PlantOrnament.svelte';
 
 export async function getStaticPaths() {
   const entries = await getCollection('es');
@@ -50,6 +51,11 @@ const nextMeta = isConclusion
 
 const { Content } = await render(currentEntry);
 const exercisesJson = JSON.stringify(currentMeta.exercises);
+
+// Plant growth progress: 0 (first page) to 1 (last content page)
+const contentPages = pagesMeta.filter(p => p.slug !== 'about');
+const contentIdx = contentPages.findIndex(p => p.slug === currentMeta.slug);
+const plantProgress = contentPages.length > 1 ? contentIdx / (contentPages.length - 1) : 0;
 ---
 
 <BaseLayout title={currentEntry.data.title}>
@@ -58,6 +64,8 @@ const exercisesJson = JSON.stringify(currentMeta.exercises);
       <article class="prose prose-sage max-w-none">
         <Content />
       </article>
+
+      {slug !== 'about' && <PlantOrnament progress={plantProgress} />}
 
       <ChapterContent
         page={currentMeta}
