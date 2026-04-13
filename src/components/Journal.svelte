@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { ChapterMeta } from '../lib/types';
+  import type { PageMeta } from '../lib/types';
   import { loadProgress } from '../lib/progress';
   import { t } from '../lib/i18n';
 
   interface Props {
-    chapters: ChapterMeta[];
+    chapters: PageMeta[];
   }
 
   let { chapters }: Props = $props();
@@ -52,7 +52,7 @@
   </div>
 </div>
 
-<div class="print-journal max-w-[620px] mx-auto rounded-xl shadow-sm px-16 py-14" style="line-height: 1.8; background-color: #fefcf8;">
+<div class="print-journal max-w-[620px] mx-auto rounded-xl shadow-sm px-16 py-14" data-testid="journal" style="line-height: 1.8; background-color: #fefcf8;">
   <!-- Header -->
   <div class="print-header mb-10 pb-5 border-b border-sage-100">
     <h1 class="font-heading text-2xl font-bold text-sage-900 mb-1">
@@ -76,7 +76,7 @@
 
   <!-- Chapters -->
   {#each chaptersWithExercises as chapter, chapterIdx (chapter.slug)}
-    <div class="print-chapter {chapterIdx > 0 ? 'mt-8' : ''}">
+    <div class="print-chapter {chapterIdx > 0 ? 'mt-8' : ''}" data-testid="journal-chapter">
       <div class="mb-5">
         {#if chapter.chapter}
           <p class="font-body text-xs uppercase tracking-widest text-sage-500 mb-1">Capítulo {chapter.chapter}</p>
@@ -106,7 +106,7 @@
             {#if childVals2.length > 0 && selfVals2.length > 0}
               <div class="mb-2 flex gap-4 font-body text-xs">
                 <span class="flex items-center gap-1"><svg class="w-3 h-4" viewBox="0 0 12 16"><path d="M5 2 Q7 4, 6 8 Q5 12, 7 14" stroke="#2d6a4f" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg> Usted</span>
-                <span class="flex items-center gap-1"><svg class="w-3 h-4" viewBox="0 0 12 16"><path d="M7 2 Q5 5, 6 8 Q7 11, 5 14" stroke="#c17856" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg> Su hijo(a)</span>
+                <span class="flex items-center gap-1"><svg class="w-3 h-4" viewBox="0 0 12 16"><path d="M7 2 Q5 5, 6 8 Q7 11, 5 14" stroke="#c17856" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg> Su hijo/a</span>
               </div>
               <div class="space-y-3 mb-4">
                 {#each dimensions as dim, i}

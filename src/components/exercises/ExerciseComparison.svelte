@@ -87,7 +87,7 @@
           <!-- Child slider -->
           <label class="block">
             <span class="mb-1 block font-body text-xs font-medium text-sage-600">
-              Su hijo(a)
+              Su hijo/a
             </span>
             <div class="flex justify-between mb-1">
               <span class="font-body text-xs text-sage-500">{dimension.low}</span>
@@ -126,7 +126,7 @@
     </button>
     {#if saved && savedAt}
       <span class="ml-auto flex items-center gap-2">
-        <span class="font-body text-xs text-sage-400">{new Date(savedAt).toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+        <span class="font-body text-xs text-sage-400" data-testid="saved-at">{new Date(savedAt).toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
         <span class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-sage-600 text-white text-xs font-bold">&#10003;</span>
       </span>
     {/if}
