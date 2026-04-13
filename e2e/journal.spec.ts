@@ -79,7 +79,7 @@ test.describe('Journal', () => {
 
     await page.goto('/es/diario');
     // The selected option text should appear
-    await expect(page.getByText('Le dice lo que está haciendo bien').first()).toBeVisible();
+    await expect(page.getByText('Te dice lo que estás haciendo bien').first()).toBeVisible();
   });
 
   test('self-assessment exercise appears in journal as visual scale', async ({ page }) => {
