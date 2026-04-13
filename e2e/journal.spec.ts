@@ -16,6 +16,7 @@ test.describe('Journal', () => {
   });
 
   test('open-text exercise appears in journal', async ({ page }) => {
+    // open-text recap exercise is on chapter-5 index page
     await page.goto('/es/chapter-5');
     const card = page.locator('.exercise-card').first();
     await card.locator('textarea').first().fill('Texto abierto para diario');
@@ -27,6 +28,7 @@ test.describe('Journal', () => {
   });
 
   test('numbered-list exercise appears in journal', async ({ page }) => {
+    // First numbered-list exercise is on chapter-1 index page
     await page.goto('/es/chapter-1');
     const card = page.locator('.exercise-card').first();
     await card.locator('input[type="text"]').first().fill('Primer objetivo listado');
@@ -38,8 +40,8 @@ test.describe('Journal', () => {
   });
 
   test('multi-section exercise appears in journal', async ({ page }) => {
-    await page.goto('/es/chapter-2');
-    // The warmth exercise (warmth-1) is a multi-section
+    // warmth-1 (multi-section) is on /es/chapter-2/calidez
+    await page.goto('/es/chapter-2/calidez');
     const cards = page.locator('.exercise-card');
     // Second card is warmth-1 (first is the radio warmth-why)
     const card = cards.nth(1);
@@ -52,7 +54,8 @@ test.describe('Journal', () => {
   });
 
   test('guided-list exercise appears in journal', async ({ page }) => {
-    await page.goto('/es/chapter-4');
+    // Guided-list exercises are on age sub-pages in chapter 4
+    await page.goto('/es/chapter-4/0-a-6-meses');
     const card = page.locator('.exercise-card').first();
     const input = card.locator('input[type="text"]');
     await input.fill('Motivo guiado test');
@@ -65,7 +68,8 @@ test.describe('Journal', () => {
   });
 
   test('radio exercise appears in journal', async ({ page }) => {
-    await page.goto('/es/chapter-2');
+    // warmth-why (radio) is on /es/chapter-2/calidez
+    await page.goto('/es/chapter-2/calidez');
     // First card is warmth-why (radio type)
     const card = page.locator('.exercise-card').first();
     // Select the first option of the first question
@@ -79,7 +83,8 @@ test.describe('Journal', () => {
   });
 
   test('self-assessment exercise appears in journal as visual scale', async ({ page }) => {
-    await page.goto('/es/chapter-3');
+    // Temperament exercises are on /es/chapter-3/5-a-9-anos
+    await page.goto('/es/chapter-3/5-a-9-anos');
     // First exercise is temperament-child (self-assessment with sliders)
     const card = page.locator('.exercise-card').first();
     await card.locator('button', { hasText: 'Guardar' }).click();
@@ -93,6 +98,7 @@ test.describe('Journal', () => {
   });
 
   test('exercise notes appear in journal', async ({ page }) => {
+    // open-text exercise with notes is on chapter-5 index page
     await page.goto('/es/chapter-5');
     const card = page.locator('.exercise-card').first();
     // Fill the main answer
@@ -106,5 +112,27 @@ test.describe('Journal', () => {
 
     await page.goto('/es/diario');
     await expect(page.getByText('Mi nota personal para el diario')).toBeVisible();
+  });
+
+  test('exercises from different sub-pages of same chapter appear under one chapter heading', async ({ page }) => {
+    // Save an exercise on chapter-2/calidez
+    await page.goto('/es/chapter-2/calidez');
+    const calidezCard = page.locator('.exercise-card').nth(1);
+    await calidezCard.locator('input[type="text"]').first().fill('Calidez agrupamiento test');
+    await calidezCard.locator('button', { hasText: 'Guardar' }).click();
+    await expect(calidezCard.locator('[data-testid="saved-at"]')).toBeVisible();
+
+    // Save an exercise on chapter-2/estructura
+    // First card is structure-why (radio), second is structure-how (multi-section with text inputs)
+    await page.goto('/es/chapter-2/estructura');
+    const estructuraCard = page.locator('.exercise-card').nth(1);
+    await estructuraCard.locator('input[type="text"]').first().fill('Estructura agrupamiento test');
+    await estructuraCard.locator('button', { hasText: 'Guardar' }).click();
+    await expect(estructuraCard.locator('[data-testid="saved-at"]')).toBeVisible();
+
+    // Go to journal and verify there is exactly ONE journal-chapter entry for Capítulo 2
+    await page.goto('/es/diario');
+    const chapterHeadings = page.locator('[data-testid="journal-chapter"]').filter({ hasText: 'Capítulo 2' });
+    await expect(chapterHeadings).toHaveCount(1);
   });
 });

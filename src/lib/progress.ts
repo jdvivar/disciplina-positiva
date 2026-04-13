@@ -36,28 +36,39 @@ export function countCompleted(exerciseIds: string[]): number {
   return exerciseIds.filter((id) => store[id]?.completed).length;
 }
 
-export function getTotalExerciseCount(): number {
-  return 9;
-}
+const PAGES_READ_KEY = 'dp-pages-read';
+const OLD_CHAPTERS_READ_KEY = 'dp-chapters-read';
 
-const CHAPTERS_READ_KEY = 'dp-chapters-read';
-
-export function markChapterRead(slug: string): void {
+export function migrateChapterProgress(): void {
   if (typeof window === 'undefined') return;
   try {
-    const raw = localStorage.getItem(CHAPTERS_READ_KEY);
+    const old = localStorage.getItem(OLD_CHAPTERS_READ_KEY);
+    if (!old) return;
+    const oldSlugs: string[] = JSON.parse(old);
+    const raw = localStorage.getItem(PAGES_READ_KEY);
+    const current: string[] = raw ? JSON.parse(raw) : [];
+    const merged = [...new Set([...current, ...oldSlugs])];
+    localStorage.setItem(PAGES_READ_KEY, JSON.stringify(merged));
+    localStorage.removeItem(OLD_CHAPTERS_READ_KEY);
+  } catch {}
+}
+
+export function markPageRead(slug: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const raw = localStorage.getItem(PAGES_READ_KEY);
     const set: string[] = raw ? JSON.parse(raw) : [];
     if (!set.includes(slug)) {
       set.push(slug);
-      localStorage.setItem(CHAPTERS_READ_KEY, JSON.stringify(set));
+      localStorage.setItem(PAGES_READ_KEY, JSON.stringify(set));
     }
   } catch {}
 }
 
-export function isChapterRead(slug: string): boolean {
+export function isPageRead(slug: string): boolean {
   if (typeof window === 'undefined') return false;
   try {
-    const raw = localStorage.getItem(CHAPTERS_READ_KEY);
+    const raw = localStorage.getItem(PAGES_READ_KEY);
     const set: string[] = raw ? JSON.parse(raw) : [];
     return set.includes(slug);
   } catch {
