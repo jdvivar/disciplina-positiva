@@ -32,7 +32,7 @@ const { title } = Astro.props;
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="{title} | Disciplina Positiva" />
+    <meta property="og:title" content={`${title} | Disciplina Positiva`} />
     <meta property="og:description" content="Aprende a criar con respeto, calidez y sin violencia. Guía interactiva basada en el manual de la Dra. Joan E. Durrant." />
     <meta property="og:image" content="https://disciplina-positiva.vercel.app/og-image.png" />
     <meta property="og:url" content="https://disciplina-positiva.vercel.app" />
@@ -41,7 +41,7 @@ const { title } = Astro.props;
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{title} | Disciplina Positiva" />
+    <meta name="twitter:title" content={`${title} | Disciplina Positiva`} />
     <meta name="twitter:description" content="Aprende a criar con respeto, calidez y sin violencia. Guía interactiva basada en el manual de la Dra. Joan E. Durrant." />
     <meta name="twitter:image" content="https://disciplina-positiva.vercel.app/og-image.png" />
 
