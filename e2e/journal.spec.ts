@@ -113,4 +113,26 @@ test.describe('Journal', () => {
     await page.goto('/es/diario');
     await expect(page.getByText('Mi nota personal para el diario')).toBeVisible();
   });
+
+  test('exercises from different sub-pages of same chapter appear under one chapter heading', async ({ page }) => {
+    // Save an exercise on chapter-2/calidez
+    await page.goto('/es/chapter-2/calidez');
+    const calidezCard = page.locator('.exercise-card').nth(1);
+    await calidezCard.locator('input[type="text"]').first().fill('Calidez agrupamiento test');
+    await calidezCard.locator('button', { hasText: 'Guardar' }).click();
+    await expect(calidezCard.locator('[data-testid="saved-at"]')).toBeVisible();
+
+    // Save an exercise on chapter-2/estructura
+    // First card is structure-why (radio), second is structure-how (multi-section with text inputs)
+    await page.goto('/es/chapter-2/estructura');
+    const estructuraCard = page.locator('.exercise-card').nth(1);
+    await estructuraCard.locator('input[type="text"]').first().fill('Estructura agrupamiento test');
+    await estructuraCard.locator('button', { hasText: 'Guardar' }).click();
+    await expect(estructuraCard.locator('[data-testid="saved-at"]')).toBeVisible();
+
+    // Go to journal and verify there is exactly ONE journal-chapter entry for Capítulo 2
+    await page.goto('/es/diario');
+    const chapterHeadings = page.locator('[data-testid="journal-chapter"]').filter({ hasText: 'Capítulo 2' });
+    await expect(chapterHeadings).toHaveCount(1);
+  });
 });
