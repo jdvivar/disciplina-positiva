@@ -58,7 +58,7 @@
   });
 </script>
 
-<div style="text-align: center; padding: 24px 0;">
+<div style="display: flex; justify-content: center; padding: 24px 0;">
   <svg
     width={svgWidth}
     height={svgHeight}
