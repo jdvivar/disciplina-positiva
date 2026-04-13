@@ -5,7 +5,7 @@ test.describe('Sidebar progress', () => {
     await page.goto('/es/chapter-1', { waitUntil: 'networkidle' });
     const sidebar = page.locator('[data-testid="sidebar"]');
     // Sub-pages should be listed under the active chapter
-    await expect(sidebar.getByText('Imagínese lo siguiente', { exact: true })).toBeVisible();
+    await expect(sidebar.getByText('Imagina lo siguiente', { exact: true })).toBeVisible();
   });
 
   test('current sub-page shows exercise list in sidebar', async ({ page }) => {

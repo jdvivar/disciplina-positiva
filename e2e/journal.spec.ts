@@ -79,12 +79,12 @@ test.describe('Journal', () => {
 
     await page.goto('/es/diario');
     // The selected option text should appear
-    await expect(page.getByText('Le dice lo que está haciendo bien').first()).toBeVisible();
+    await expect(page.getByText('Te dice lo que estás haciendo bien').first()).toBeVisible();
   });
 
   test('self-assessment exercise appears in journal as visual scale', async ({ page }) => {
-    // Temperament exercises are on /es/chapter-3/5-a-9-anos
-    await page.goto('/es/chapter-3/5-a-9-anos');
+    // Temperament exercises are on /es/chapter-3/temperamento
+    await page.goto('/es/chapter-3/temperamento');
     // First exercise is temperament-child (self-assessment with sliders)
     const card = page.locator('.exercise-card').first();
     await card.locator('button', { hasText: 'Guardar' }).click();
