@@ -78,6 +78,7 @@ test.describe('Sub-page navigation', () => {
       'chapter-3/2-a-3-anos',
       'chapter-3/3-a-5-anos',
       'chapter-3/5-a-9-anos',
+      'chapter-3/temperamento',
       'chapter-4',
       'chapter-4/0-a-6-meses',
       'chapter-4/6-a-12-meses',

@@ -3,29 +3,29 @@ import { test, expect } from '@playwright/test';
 test.describe('Plant ornament', () => {
   test('plant ornament SVG is visible on /es/intro', async ({ page }) => {
     await page.goto('/es/intro');
-    const svg = page.locator('div[style*="text-align: center"] svg[aria-hidden="true"]');
+    const svg = page.locator('[data-testid="plant-ornament"] svg');
     await expect(svg).toBeVisible();
   });
 
   test('plant ornament SVG is visible on /es/conclusion', async ({ page }) => {
     await page.goto('/es/conclusion');
-    const svg = page.locator('div[style*="text-align: center"] svg[aria-hidden="true"]');
+    const svg = page.locator('[data-testid="plant-ornament"] svg');
     await expect(svg).toBeVisible();
   });
 
   test('plant ornament SVG is NOT visible on /es/about', async ({ page }) => {
     await page.goto('/es/about');
-    const svg = page.locator('div[style*="text-align: center"] svg[aria-hidden="true"]');
+    const svg = page.locator('[data-testid="plant-ornament"] svg');
     await expect(svg).not.toBeVisible();
   });
 
   test('plant SVG is smaller on early page than on later page', async ({ page }) => {
     await page.goto('/es/intro');
-    const introSvg = page.locator('div[style*="text-align: center"] svg[aria-hidden="true"]');
+    const introSvg = page.locator('[data-testid="plant-ornament"] svg');
     const introWidth = await introSvg.getAttribute('width');
 
     await page.goto('/es/conclusion');
-    const conclusionSvg = page.locator('div[style*="text-align: center"] svg[aria-hidden="true"]');
+    const conclusionSvg = page.locator('[data-testid="plant-ornament"] svg');
     const conclusionWidth = await conclusionSvg.getAttribute('width');
 
     expect(Number(introWidth)).toBeLessThan(Number(conclusionWidth));
