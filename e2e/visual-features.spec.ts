@@ -52,4 +52,16 @@ test.describe('Illustrations', () => {
     const img = page.locator('img[src*="/illustrations/chapter-1.webp"]');
     await expect(img).toBeVisible();
   });
+
+  test('/es/chapter-5 has the chapter-5 illustration', async ({ page }) => {
+    await page.goto('/es/chapter-5');
+    const img = page.locator('img[src*="/illustrations/chapter-5.webp"]');
+    await expect(img).toBeVisible();
+  });
+
+  test('/es/conclusion has the conclusion illustration', async ({ page }) => {
+    await page.goto('/es/conclusion');
+    const img = page.locator('img[src*="/illustrations/conclusion.webp"]');
+    await expect(img).toBeVisible();
+  });
 });
