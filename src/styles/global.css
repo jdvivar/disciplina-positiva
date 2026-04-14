@@ -290,6 +290,21 @@ main h3:first-child {
   white-space: nowrap;
 }
 
+/* On narrow viewports the left-side "Estás aquí" badge falls off the
+   screen, so replace it with a simple arrow that sits just to the left
+   of the current row, inside the visible area. */
+@media (max-width: 640px) {
+  .pyramid-current::before {
+    content: '→';
+    left: -22px;
+    padding: 0;
+    background: transparent;
+    color: var(--level-color, var(--color-sage-600));
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+
 /* Blockquote styling — Soft Green Card with quote mark */
 blockquote {
   background: var(--color-surface);
